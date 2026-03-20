@@ -1,21 +1,1456 @@
-# 🫀 Cardiovascular Case Study: Heart Failure
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GI Disorders NCLEX Mastery Lab — Part 1</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=DM+Mono:wght@400;500&display=swap');
+:root{
+  --bg:#080e09;--surf:#0f1a10;--surf2:#162018;--surf3:#1e2d1f;
+  --bdr:#253227;--text:#dff0e1;--muted:#6b8f6e;
+  --red:#ff4444;--red-d:#2a0808;
+  --orange:#ff8c00;--orange-d:#291500;
+  --yellow:#f5c518;--yellow-d:#252000;
+  --green:#3dba5f;--green-d:#082012;
+  --teal:#20b2aa;--teal-d:#041e1d;
+  --blue:#4dabf7;--blue-d:#082035;
+  --purple:#b57bee;--purple-d:#1a0930;
+  --pink:#f06292;--pink-d:#290a14;
+  --lime:#a8e063;--cyan:#38d9e8;
+  --amber:#ffb347;--amber-d:#251800;
+  --r:8px;--r2:14px;--shadow:0 8px 32px rgba(0,0,0,.6);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--surf)}
+::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:3px}
 
-### 🔍 Clinical Manifestations
-> **Left-Sided (L = Lungs)** | **Right-Sided (R = Rest of Body)**
-> :--- | :---
-> 🌬️ Dyspnea & Orthopnea | 🦵 Dependent Edema (Legs/Sacrum)
-> 🔊 Crackles/Wheezes | 🎈 Jugular Venous Distension (JVD)
-> 🩸 Frothy Pink Sputum (Edema) | 🤢 Abdominal Distension/Ascites
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#080e09,#0f1a10,#091408);border-bottom:1px solid var(--bdr);padding:14px 18px 0;position:sticky;top:0;z-index:200;box-shadow:0 4px 30px rgba(0,0,0,.8)}
+.hdr-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.logo{width:44px;height:44px;background:linear-gradient(135deg,var(--green),var(--teal));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 0 20px rgba(61,186,95,.4);animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(61,186,95,.4)}50%{box-shadow:0 0 38px rgba(61,186,95,.7)}}
+.hdr-info h1{font-size:clamp(13px,2.2vw,19px);font-weight:900;background:linear-gradient(90deg,#3dba5f,#f5c518,#ff8c00,#4dabf7,#b57bee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdr-info p{font-size:11px;color:var(--muted)}
+.part-badge{margin-left:auto;padding:5px 14px;background:linear-gradient(135deg,var(--green),var(--teal));border-radius:20px;font-size:11px;font-weight:800;color:#080e09;white-space:nowrap}
+.tab-nav{display:flex;gap:1px;overflow-x:auto;scrollbar-width:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tb{padding:8px 12px;border:none;background:transparent;color:var(--muted);font-family:'Outfit',sans-serif;font-size:10.5px;font-weight:700;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;letter-spacing:.3px;border-radius:var(--r) var(--r) 0 0;text-transform:uppercase}
+.tb:hover{color:var(--text);background:rgba(61,186,95,.06)}
+.tb.active{color:var(--lime);border-bottom-color:var(--green);background:rgba(61,186,95,.1)}
 
+/* MAIN */
+.main{max-width:1120px;margin:0 auto;padding:22px 14px 80px}
+.sec{display:none;animation:fd .3s ease}
+.sec.active{display:block}
+@keyframes fd{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sh{margin-bottom:22px}
+.sh h2{font-size:clamp(17px,3.5vw,25px);font-weight:900;margin-bottom:4px}
+.sh p{font-size:13px;color:var(--muted)}
 
+/* CARDS */
+.card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r2);padding:16px;transition:border-color .2s,box-shadow .2s}
+.card:hover{border-color:rgba(61,186,95,.3);box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.ct{font-size:13.5px;font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr}}
+@media(max-width:520px){.cg{grid-template-columns:1fr}}
 
-### ⚠️ Risk Factors & Diagnostics
-* **Risks:** Hypertension, Myocardial Infarction, CAD.
-* **Labs:** **BNP > 100 pg/mL** (The "gold standard" for HF stretch).
-* **Imaging:** Echocardiogram (Check **Ejection Fraction**; Normal is 55-70%).
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.b-em{background:var(--red-d);color:var(--red);border:1px solid rgba(255,68,68,.35)}
+.b-warn{background:var(--orange-d);color:var(--orange);border:1px solid rgba(255,140,0,.35)}
+.b-info{background:var(--blue-d);color:var(--blue);border:1px solid rgba(77,171,247,.35)}
+.b-ok{background:var(--green-d);color:var(--green);border:1px solid rgba(61,186,95,.35)}
+.b-med{background:var(--purple-d);color:var(--purple);border:1px solid rgba(181,123,238,.35)}
+.b-hy{background:var(--yellow-d);color:var(--yellow);border:1px solid rgba(245,197,24,.35);animation:pb 2s infinite}
+@keyframes pb{0%,100%{box-shadow:0 0 0 0 rgba(245,197,24,.3)}50%{box-shadow:0 0 0 3px rgba(245,197,24,0)}}
+.b-tl{background:var(--teal-d);color:var(--teal);border:1px solid rgba(32,178,170,.35)}
 
-### 💊 Interventions & Meds
-1. **Furosemide (Lasix):** Diuretic. *NCLEX Tip: Monitor Potassium levels!*
-2. **Digoxin:** Increases contractility. *Hold if HR < 60.*
-3. **Positioning:** High-Fowler's to ease breathing.
-4. **Fluid Restriction:** Usually < 2L/day.
+/* ALERTS */
+.al{padding:11px 14px;border-radius:var(--r);margin-bottom:12px;font-size:12.5px;border-left:3px solid;display:flex;gap:9px;align-items:flex-start;line-height:1.6}
+.al-em{background:var(--red-d);border-color:var(--red);color:#ffacac}
+.al-warn{background:var(--orange-d);border-color:var(--orange);color:#ffd09a}
+.al-info{background:var(--blue-d);border-color:var(--blue);color:#9dcfff}
+.al-ok{background:var(--green-d);border-color:var(--green);color:#9affb8}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;border-radius:var(--r);border:none;font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .18s;text-transform:uppercase;letter-spacing:.4px}
+.btn-g{background:linear-gradient(135deg,var(--green),var(--teal));color:#080e09}
+.btn-g:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(61,186,95,.4)}
+.btn-s{background:var(--surf2);color:var(--text);border:1px solid var(--bdr)}
+.btn-s:hover{background:var(--bdr)}
+
+/* ACCORDION */
+.acc{margin-bottom:5px}
+.ah{padding:12px 14px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:13px;user-select:none;transition:all .2s}
+.ah:hover{background:var(--surf2);border-color:rgba(61,186,95,.3)}
+.ah.open{background:rgba(61,186,95,.08);border-color:rgba(61,186,95,.4);color:var(--lime);border-radius:var(--r) var(--r) 0 0}
+.aa{transition:transform .25s;color:var(--muted);font-size:11px}
+.ah.open .aa{transform:rotate(180deg);color:var(--green)}
+.ab{display:none;padding:12px 14px;background:var(--surf2);border:1px solid rgba(37,50,39,.4);border-top:none;border-radius:0 0 var(--r) var(--r);font-size:12.5px;line-height:1.75;color:#c0d8c2}
+.ab.open{display:block;animation:fd .2s ease}
+
+/* HIGHLIGHTS */
+.hl{background:var(--surf2);border-radius:var(--r);padding:10px 13px;margin:7px 0;font-size:12.5px}
+.hl-r{background:var(--red-d);border:1px solid rgba(255,68,68,.2)}
+.hl-g{background:var(--green-d);border:1px solid rgba(61,186,95,.2)}
+.hl-b{background:var(--blue-d);border:1px solid rgba(77,171,247,.2)}
+.hl-o{background:var(--orange-d);border:1px solid rgba(255,140,0,.2)}
+.hl-p{background:var(--purple-d);border:1px solid rgba(181,123,238,.2)}
+.hl-y{background:var(--yellow-d);border:1px solid rgba(245,197,24,.2)}
+.hl-t{background:var(--teal-d);border:1px solid rgba(32,178,170,.2)}
+.hl-a{background:var(--amber-d);border:1px solid rgba(255,179,71,.2)}
+
+/* REVEAL */
+.rv{display:none}
+.rv.open{display:block;animation:fd .2s ease;margin-top:10px;padding-top:10px;border-top:1px solid var(--bdr)}
+
+/* SUB TABS */
+.stabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px}
+.st{padding:6px 12px;border-radius:20px;border:1px solid var(--bdr);background:var(--surf2);color:var(--muted);font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .18s;text-transform:uppercase;letter-spacing:.4px}
+.st:hover{color:var(--text);border-color:rgba(61,186,95,.4)}
+.st.active{background:rgba(61,186,95,.15);border-color:var(--green);color:var(--lime)}
+.ss{display:none}
+.ss.active{display:block;animation:fd .25s ease}
+
+/* TABLE */
+.dt{width:100%;border-collapse:collapse;font-size:12px}
+.dt th{background:var(--surf2);padding:8px 12px;text-align:left;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--bdr)}
+.dt td{padding:8px 12px;border-bottom:1px solid rgba(37,50,39,.4);vertical-align:top;line-height:1.6}
+.dt tr:hover td{background:rgba(61,186,95,.025)}
+.tw{overflow-x:auto;border-radius:var(--r);border:1px solid var(--bdr)}
+.ct2{width:100%;border-collapse:collapse;font-size:12px}
+.ct2 th{background:var(--surf2);padding:9px 11px;border:1px solid var(--bdr);font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.ct2 td{padding:9px 11px;border:1px solid rgba(37,50,39,.4);vertical-align:top;line-height:1.6}
+.ct2 tr:nth-child(even) td{background:rgba(61,186,95,.015)}
+
+/* DISEASE CARD */
+.dc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;margin-bottom:12px;transition:border-color .2s}
+.dc:hover{border-color:rgba(61,186,95,.3)}
+.dh{padding:13px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;transition:background .2s}
+.dh:hover{background:rgba(61,186,95,.05)}
+.dh.open{background:rgba(61,186,95,.08)}
+.db{display:none;padding:0 16px 16px}
+.db.open{display:block;animation:fd .25s ease}
+
+/* MATCH */
+.mi{padding:10px 13px;background:var(--surf2);border:2px solid var(--bdr);border-radius:var(--r);cursor:pointer;font-size:12px;font-weight:600;transition:all .18s;user-select:none}
+.mi:hover{border-color:var(--teal);color:var(--cyan)}
+.mi.sel{border-color:var(--amber);background:rgba(255,179,71,.1);color:var(--amber)}
+.mi.mat{border-color:var(--green);background:var(--green-d);color:var(--lime);cursor:default}
+.mi.wrm{border-color:var(--red);background:var(--red-d);color:var(--red)}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.mg{grid-template-columns:1fr}}
+.mc{display:flex;flex-direction:column;gap:6px}
+
+/* BULLETS */
+.bl{list-style:none}
+.bl li{padding:4px 0;border-bottom:1px solid rgba(37,50,39,.4);font-size:12.5px;display:flex;gap:7px;align-items:flex-start}
+.bl li::before{content:'▸';color:var(--green);font-size:10px;margin-top:4px;flex-shrink:0}
+
+/* STEPS */
+.step{display:flex;gap:10px;margin-bottom:10px}
+.sn{width:24px;height:24px;background:linear-gradient(135deg,var(--green),var(--teal));border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:10px;color:#080e09;flex-shrink:0;margin-top:2px}
+
+/* MISC */
+.hy-tag{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;background:rgba(245,197,24,.12);border:1px solid rgba(245,197,24,.4);border-radius:4px;color:var(--yellow);font-size:10px;font-weight:700;text-transform:uppercase}
+.divider{border:none;border-top:1px solid var(--bdr);margin:18px 0}
+@media(max-width:480px){.tb{padding:6px 8px;font-size:9px}.main{padding:12px 9px 60px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-top">
+    <div class="logo">🫁</div>
+    <div class="hdr-info">
+      <h1>GI Disorders NCLEX Interactive Mastery Lab</h1>
+      <p>Sections 1–7 · Overview · Upper GI · Lower GI · Inflammatory · Hepatobiliary · Emergencies · Diagnostics</p>
+    </div>
+    <div class="part-badge">📘 PART 1 of 2</div>
+  </div>
+  <nav class="tab-nav">
+    <button class="tb active" data-tab="ov">1 GI Overview</button>
+    <button class="tb" data-tab="up">2 Upper GI</button>
+    <button class="tb" data-tab="lo">3 Lower GI</button>
+    <button class="tb" data-tab="inf">4 Inflammatory</button>
+    <button class="tb" data-tab="hep">5 Hepatobiliary</button>
+    <button class="tb" data-tab="em">6 GI Emergencies</button>
+    <button class="tb" data-tab="dx">7 Diagnostics</button>
+  </nav>
+</header>
+
+<main class="main">
+
+<!-- ============================================================ SECTION 1: OVERVIEW -->
+<section id="ov" class="sec active">
+  <div class="sh"><h2 style="color:var(--lime)">🫁 GI System Overview</h2><p>Understand the framework behind every GI NCLEX question</p></div>
+  <div class="al al-info">💡 <span><strong>NCLEX GI Reasoning:</strong> Before any diagnosis, ask these 7 questions. They guide every priority nursing decision in GI care.</span></div>
+
+  <div class="g2" style="margin-bottom:20px;align-items:start">
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="ct">🗺️ GI Tract Diagram — Click Organs</div>
+        <p style="font-size:11.5px;color:var(--muted);margin-bottom:10px">Click any organ to see its function and key disorders</p>
+        <svg viewBox="0 0 260 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto">
+          <ellipse cx="130" cy="230" rx="100" ry="220" fill="#0f1a10" stroke="#253227" stroke-width="1"/>
+          <rect x="120" y="28" width="18" height="55" rx="7" fill="#162018" stroke="#3dba5f" stroke-width="1.5" style="cursor:pointer" onclick="showOrg('esoph')"/>
+          <text x="142" y="57" fill="#6b8f6e" font-size="9" font-family="Outfit">Esophagus</text>
+          <ellipse cx="118" cy="125" rx="33" ry="26" fill="#1a2e1a" stroke="#a8e063" stroke-width="2" style="cursor:pointer" onclick="showOrg('stom')"/>
+          <text x="99" y="128" fill="#a8e063" font-size="10" font-family="Outfit" font-weight="700">Stomach</text>
+          <ellipse cx="165" cy="115" rx="26" ry="18" fill="#1a2a00" stroke="#f5c518" stroke-width="2" style="cursor:pointer" onclick="showOrg('liver')"/>
+          <text x="150" y="119" fill="#f5c518" font-size="9" font-family="Outfit">Liver</text>
+          <ellipse cx="178" cy="140" rx="13" ry="9" fill="#1e2200" stroke="#ffb347" stroke-width="1.5" style="cursor:pointer" onclick="showOrg('gb')"/>
+          <text x="165" y="161" fill="#ffb347" font-size="8" font-family="Outfit">GB</text>
+          <rect x="95" y="148" width="62" height="16" rx="7" fill="#16102a" stroke="#b57bee" stroke-width="1.5" style="cursor:pointer" onclick="showOrg('panc')"/>
+          <text x="103" y="160" fill="#b57bee" font-size="9" font-family="Outfit">Pancreas</text>
+          <path d="M 105 205 Q 152 195 160 222 Q 170 248 132 258 Q 95 268 100 242 Q 105 222 132 232 Q 156 240 152 258 Q 148 272 124 272" fill="none" stroke="#4dabf7" stroke-width="3" style="cursor:pointer" onclick="showOrg('sm')"/>
+          <text x="135" y="237" fill="#4dabf7" font-size="8" font-family="Outfit">Small</text>
+          <text x="132" y="247" fill="#4dabf7" font-size="8" font-family="Outfit">Intestine</text>
+          <path d="M 75 195 L 75 312 Q 75 330 95 330 L 168 330 Q 188 330 188 312 L 188 195" fill="none" stroke="#ff8c00" stroke-width="2.5" style="cursor:pointer" onclick="showOrg('lg')"/>
+          <text x="77" y="300" fill="#ff8c00" font-size="8" font-family="Outfit">Large</text>
+          <text x="77" y="310" fill="#ff8c00" font-size="8" font-family="Outfit">Intestine</text>
+          <line x1="75" y1="284" x2="57" y2="302" stroke="#ff4444" stroke-width="2" style="cursor:pointer" onclick="showOrg('app')"/>
+          <circle cx="53" cy="307" r="6" fill="#2a0808" stroke="#ff4444" stroke-width="2" style="cursor:pointer" onclick="showOrg('app')"/>
+          <text x="30" y="323" fill="#ff4444" font-size="8" font-family="Outfit">Appendix</text>
+          <rect x="116" y="330" width="32" height="28" rx="5" fill="#0e1e1c" stroke="#20b2aa" stroke-width="1.5" style="cursor:pointer" onclick="showOrg('rect')"/>
+          <text x="112" y="350" fill="#20b2aa" font-size="9" font-family="Outfit">Rectum</text>
+        </svg>
+        <div id="orginfo" class="hl" style="display:none;margin-top:10px"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="ct">🔑 7-Question NCLEX GI Framework</div>
+        <div id="fw-accs"></div>
+      </div>
+      <div class="card">
+        <div class="ct">📊 Upper vs Lower GI Quick Reference</div>
+        <div class="tw">
+          <table class="dt">
+            <tr><th>Feature</th><th>Upper GI</th><th>Lower GI</th></tr>
+            <tr><td>Organs</td><td>Esophagus, stomach, duodenum</td><td>Colon, rectum, anus</td></tr>
+            <tr><td>Bleed clue</td><td>Melena, coffee-ground emesis</td><td>Hematochezia (bright red)</td></tr>
+            <tr><td>Pain area</td><td>Epigastric, substernal, RUQ</td><td>LLQ, RLQ, periumbilical</td></tr>
+            <tr><td>Key disorders</td><td>PUD, GERD, varices, gastritis</td><td>Appendicitis, IBD, diverticulitis</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:14px;font-weight:700;color:var(--teal);margin-bottom:11px">🔬 GI Organ Functions</h3>
+  <div class="cg">
+    <div class="card"><div class="ct">🔴 Esophagus</div><p style="font-size:12.5px">Muscular tube transporting food via peristalsis. LES prevents reflux. Weakness = GERD. Varices from portal HTN. Achalasia = LES fails to relax.</p></div>
+    <div class="card"><div class="ct">🟠 Stomach</div><p style="font-size:12.5px">Secretes HCl + pepsin. Churns food to chyme. Acid + H.pylori = ulcers/gastritis. H2 blockers/PPIs reduce acid. Controls gastric emptying.</p></div>
+    <div class="card"><div class="ct">🟡 Liver</div><p style="font-size:12.5px">Detoxification, bile production, clotting factors (II,VII,IX,X), albumin synthesis. Failure = jaundice, coagulopathy, encephalopathy from ammonia.</p></div>
+    <div class="card"><div class="ct">🟢 Gallbladder</div><p style="font-size:12.5px">Stores/concentrates bile. Releases when fat enters duodenum (CCK trigger). Gallstones → cholecystitis. Murphy's sign on palpation.</p></div>
+    <div class="card"><div class="ct">🔵 Pancreas</div><p style="font-size:12.5px">Exocrine: amylase + lipase. Endocrine: insulin/glucagon. Blocked ducts = pancreatitis (autodigestion). NPO is key management. Lipase more specific than amylase.</p></div>
+    <div class="card"><div class="ct">🟣 Small Intestine</div><p style="font-size:12.5px">90% of nutrient absorption. Villi maximize surface area. Celiac disease destroys villi → malabsorption. B12 absorbed in ileum. Crohn's often affects terminal ileum.</p></div>
+    <div class="card"><div class="ct">⚫ Large Intestine</div><p style="font-size:12.5px">Water/electrolyte reabsorption, stool formation, gut microbiome. IBD, C.diff, diverticulitis, colorectal cancer. Toxic megacolon risk.</p></div>
+    <div class="card"><div class="ct">❤️ Appendix</div><p style="font-size:12.5px">Blind pouch at cecum. Obstruction → appendicitis. McBurney's point. Rupture → peritonitis. NEVER give laxatives/enemas if suspected. SURGICAL EMERGENCY.</p></div>
+  </div>
+</section>
+
+<!-- ============================================================ SECTION 2: UPPER GI -->
+<section id="up" class="sec">
+  <div class="sh"><h2 style="color:var(--orange)">🔴 Upper GI Disorders</h2><p>Esophagus · Stomach · Duodenum · Bleeding & Reflux</p></div>
+  <div class="al al-em">🚨 <span><strong>Bleeding Clues:</strong> Coffee-ground emesis = digested blood = upper GI source (slower bleed). Bright red hematemesis = active upper GI bleed. Melena (black tarry stool) = upper GI bleed. Hematochezia (bright red rectal blood) = lower GI.</span></div>
+  <div id="upper-dx"></div>
+</section>
+
+<!-- ============================================================ SECTION 3: LOWER GI -->
+<section id="lo" class="sec">
+  <div class="sh"><h2 style="color:var(--amber)">🟡 Lower GI Disorders</h2><p>Colon · Rectum · Appendix · Bowel patterns</p></div>
+  <div class="al al-warn">⚠️ <span><strong>Stool Clues:</strong> Black/tarry = upper GI. Bright red = lower GI. Pencil-thin = cancer concern. Watery + antibiotic history = C.diff. Fatty/floating = malabsorption. Paradoxical diarrhea in constipated patient = fecal impaction.</span></div>
+  <div id="lower-dx"></div>
+</section>
+
+<!-- ============================================================ SECTION 4: INFLAMMATORY -->
+<section id="inf" class="sec">
+  <div class="sh"><h2 style="color:var(--red)">🔥 Inflammatory & Autoimmune GI Disorders</h2><p>IBD · Crohn's · UC · IBS · Celiac · Toxic Megacolon</p></div>
+  <div class="stabs" id="inf-tabs">
+    <button class="st active" onclick="setSt(this,'inf')" data-s="crohn">Crohn's Disease</button>
+    <button class="st" onclick="setSt(this,'inf')" data-s="uc">Ulcerative Colitis</button>
+    <button class="st" onclick="setSt(this,'inf')" data-s="ibs">IBS</button>
+    <button class="st" onclick="setSt(this,'inf')" data-s="cel">Celiac Disease</button>
+    <button class="st" onclick="setSt(this,'inf')" data-s="tox">Toxic Megacolon</button>
+    <button class="st" onclick="setSt(this,'inf')" data-s="infcmp">📊 Compare Chart</button>
+  </div>
+  <div id="sub-crohn" class="ss active" data-p="inf"></div>
+  <div id="sub-uc" class="ss" data-p="inf"></div>
+  <div id="sub-ibs" class="ss" data-p="inf"></div>
+  <div id="sub-cel" class="ss" data-p="inf"></div>
+  <div id="sub-tox" class="ss" data-p="inf"></div>
+  <div id="sub-infcmp" class="ss" data-p="inf"></div>
+</section>
+
+<!-- ============================================================ SECTION 5: HEPATOBILIARY -->
+<section id="hep" class="sec">
+  <div class="sh"><h2 style="color:var(--amber)">🟡 Hepatobiliary & Pancreatic Disorders</h2><p>Liver · Gallbladder · Pancreas · Portal HTN · Jaundice</p></div>
+  <div class="stabs" id="hep-tabs">
+    <button class="st active" onclick="setSt(this,'hep')" data-s="hepa">Hepatitis</button>
+    <button class="st" onclick="setSt(this,'hep')" data-s="cirrh">Cirrhosis</button>
+    <button class="st" onclick="setSt(this,'hep')" data-s="porthtn">Portal HTN & Ascites</button>
+    <button class="st" onclick="setSt(this,'hep')" data-s="enceph">Hepatic Encephalopathy</button>
+    <button class="st" onclick="setSt(this,'hep')" data-s="chol">Cholelithiasis</button>
+    <button class="st" onclick="setSt(this,'hep')" data-s="cholcy">Cholecystitis</button>
+    <button class="st" onclick="setSt(this,'hep')" data-s="panc">Pancreatitis</button>
+    <button class="st" onclick="setSt(this,'hep')" data-s="jaund">Jaundice Patterns</button>
+  </div>
+  <div id="sub-hepa" class="ss active" data-p="hep"></div>
+  <div id="sub-cirrh" class="ss" data-p="hep"></div>
+  <div id="sub-porthtn" class="ss" data-p="hep"></div>
+  <div id="sub-enceph" class="ss" data-p="hep"></div>
+  <div id="sub-chol" class="ss" data-p="hep"></div>
+  <div id="sub-cholcy" class="ss" data-p="hep"></div>
+  <div id="sub-panc" class="ss" data-p="hep"></div>
+  <div id="sub-jaund" class="ss" data-p="hep"></div>
+</section>
+
+<!-- ============================================================ SECTION 6: EMERGENCIES -->
+<section id="em" class="sec">
+  <div class="sh"><h2 style="color:var(--red)">🚨 Bowel Emergencies & Surgical GI</h2><p>Life-threatening GI conditions requiring immediate nursing action</p></div>
+  <div class="al al-em">🚨 <span><strong>Red Flag Triad:</strong> Rigid board-like abdomen + absent bowel sounds + fever = PERITONITIS until proven otherwise. Call MD IMMEDIATELY.</span></div>
+  <div id="em-content"></div>
+  <hr class="divider">
+  <h3 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:12px">🎮 Emergency Symptom Sorter — Match Game</h3>
+  <p style="font-size:12.5px;color:var(--muted);margin-bottom:14px">Click a clinical clue on the LEFT → then click the matching emergency on the RIGHT</p>
+  <div id="em-game"></div>
+</section>
+
+<!-- ============================================================ SECTION 7: DIAGNOSTICS -->
+<section id="dx" class="sec">
+  <div class="sh"><h2 style="color:var(--blue)">🧪 Diagnostics & Labs</h2><p>Key GI tests — nursing prep, post-care, and NCLEX focus points</p></div>
+  <div id="dx-content"></div>
+</section>
+
+</main>
+
+<script>
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+document.querySelectorAll('.tb').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tb').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.sec').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const s=document.getElementById(b.dataset.tab);
+    if(s)s.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+function setSt(btn,pid){
+  btn.closest('.stabs').querySelectorAll('.st').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll(`[data-p="${pid}"]`).forEach(x=>x.classList.remove('active'));
+  const t=document.getElementById('sub-'+btn.dataset.s);
+  if(t)t.classList.add('active');
+}
+
+function tAcc(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function tDis(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function tRv(id){document.getElementById(id).classList.toggle('open');}
+
+// ─────────────────────────────────────────────
+// ORGAN MAP
+// ─────────────────────────────────────────────
+const orgs={
+  esoph:{t:'Esophagus',i:'25cm muscular tube. LES prevents reflux — weakness = GERD. Varices from portal HTN. Achalasia = LES fails to relax → dysphagia to BOTH solids & liquids.',c:'var(--green)'},
+  stom:{t:'Stomach',i:'Secretes HCl + pepsin. Churns food to chyme. H.pylori + acid = ulcers/gastritis. H2 blockers/PPIs reduce acid. Pain: gastric ulcer = worse WITH food; duodenal = better with food.',c:'var(--lime)'},
+  liver:{t:'Liver',i:'Detoxification, bile production, clotting factors (PT/INR), albumin. Failure = jaundice, coagulopathy, encephalopathy. Low albumin = poor prognosis/nutrition marker.',c:'var(--yellow)'},
+  gb:{t:'Gallbladder',i:'Stores bile. Releases when fat enters duodenum (CCK trigger). Gallstones = cholecystitis. Murphy\'s sign: pain halts inspiration during RUQ palpation = cholecystitis.',c:'var(--amber)'},
+  panc:{t:'Pancreas',i:'Exocrine: amylase + lipase. Endocrine: insulin/glucagon. Blocked ducts = pancreatitis (autodigestion). LIPASE > AMYLASE in specificity. NPO = key treatment.',c:'var(--purple)'},
+  sm:{t:'Small Intestine',i:'Primary absorption site. Villi maximize surface area. Celiac = villous atrophy = malabsorption. B12/bile salts absorbed in ileum. Crohn\'s affects any segment.',c:'var(--blue)'},
+  lg:{t:'Large Intestine',i:'Water/electrolyte reabsorption, stool formation. IBD (Crohn\'s/UC), C.diff, diverticulitis, colorectal cancer. Cecum → ascending → transverse → descending → sigmoid.',c:'var(--orange)'},
+  app:{t:'Appendix 🚨',i:'RLQ at cecum. Obstruction → appendicitis. McBurney\'s point (2/3 from umbilicus to ASIS). NEVER give laxatives/enemas/heat. Rupture → peritonitis → EMERGENCY.',c:'var(--red)'},
+  rect:{t:'Rectum & Anus',i:'Stool storage before defecation. Hemorrhoids (internal=painless; external=painful). Bright red rectal bleeding. Rectal cancer screening. Fecal impaction palpated by digital exam.',c:'var(--teal)'}
+};
+function showOrg(k){
+  const d=orgs[k],el=document.getElementById('orginfo');
+  el.style.display='block';el.style.borderLeft=`3px solid ${d.c}`;
+  el.innerHTML=`<strong style="color:${d.c}">${d.t}</strong><br><span style="font-size:12px;line-height:1.7">${d.i}</span>`;
+}
+
+// ─────────────────────────────────────────────
+// FRAMEWORK ACCORDIONS
+// ─────────────────────────────────────────────
+const fw=[
+  {q:'🩸 Is it BLEEDING?',a:'Look for: hematemesis (coffee-ground or bright red), melena (black tarry = upper GI), hematochezia (bright red = lower GI). Tachycardia + hypotension = hemorrhagic shock. <strong>PRIORITY:</strong> Assess AIRWAY first (aspiration risk), then 2 large-bore IVs, NPO, O₂, type & crossmatch, emergent endoscopy.'},
+  {q:'🚧 Is it OBSTRUCTED?',a:'Look for: abdominal distention, absent flatus, N/V, high-pitched then absent bowel sounds, hypertympanic abdomen. Mechanical (adhesions, tumor, hernia) vs functional (paralytic ileus). <strong>NEVER give laxatives or enemas.</strong> NG tube for decompression.'},
+  {q:'🔥 Is it INFLAMED?',a:'Look for: fever, elevated WBC, localized pain, rebound tenderness. Consider: appendicitis (RLQ), diverticulitis (LLQ), IBD flare, pancreatitis (epigastric → back), cholecystitis (RUQ + Murphy\'s). Assess pain character, location, and timing.'},
+  {q:'🦠 Is it INFECTED?',a:'Look for: fever, chills, elevated WBC, peritoneal signs. C.diff: watery diarrhea + antibiotics = <strong>CONTACT precautions + SOAP AND WATER</strong> handwashing (alcohol gel does NOT kill spores!). Peritonitis = surgical emergency. Watch for sepsis.'},
+  {q:'💥 Is it PERFORATED?',a:'Look for: sudden severe diffuse pain, rigid board-like abdomen, absent bowel sounds, free air under diaphragm on X-ray, fever, sepsis signs. <strong>SURGICAL EMERGENCY.</strong> NPO, IV access, IV antibiotics, call MD IMMEDIATELY. Do not delay.'},
+  {q:'💧 Is it DEHYDRATING the patient?',a:'Look for: dry mucous membranes, poor skin turgor, tachycardia, oliguria (<30mL/hr), hypotension, elevated BUN/Cr. Caused by: vomiting, diarrhea, bleeding, NG suction, NPO status. Replace volume, monitor electrolytes (K+, Na+, Cl-).'},
+  {q:'🥗 Is the patient MALNOURISHED?',a:'Look for: low albumin (<3.5), weight loss, poor wound healing, muscle wasting, fatigue. High risk: Crohn\'s, cirrhosis, pancreatitis, cancer, prolonged NPO. Consider TPN, enteral feeds, dietitian consult. Low albumin = poor prognosis marker.'}
+];
+(()=>{
+  const c=document.getElementById('fw-accs');
+  c.innerHTML=fw.map(x=>`<div class="acc"><div class="ah" onclick="tAcc(this)">${x.q}<span class="aa">▼</span></div><div class="ab">${x.a}</div></div>`).join('');
+})();
+
+// ─────────────────────────────────────────────
+// DISEASE CARD BUILDER
+// ─────────────────────────────────────────────
+function buildDC(d){
+  const id=d.name.replace(/[^a-z0-9]/gi,'');
+  return `<div class="dc" id="dc-${id}">
+    <div class="dh" onclick="tDis(this)">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:19px">${d.icon}</span>
+        <span style="font-size:14px;font-weight:800">${d.name}</span>
+        <span class="badge ${d.badge}">${d.badgeText}</span>
+        ${d.hy?'<span class="hy-tag">⭐ High-Yield</span>':''}
+      </div><span class="aa">▼</span>
+    </div>
+    <div class="db">
+      <div class="g2" style="margin-bottom:11px">
+        <div class="hl hl-t" style="font-size:12.5px"><strong style="color:var(--teal)">🎓 Simple:</strong> ${d.simple}</div>
+        <div class="hl" style="font-size:12.5px"><strong>📍 Affected:</strong> ${d.affected}</div>
+      </div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">📖 Definition & Pathophysiology <span class="aa">▼</span></div>
+        <div class="ab"><strong>Definition:</strong> ${d.def}<br><br><strong>Pathophysiology:</strong> ${d.patho}</div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">⚠️ Causes & Risk Factors <span class="aa">▼</span></div>
+        <div class="ab">${d.causes}</div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">🩺 Symptoms & Hallmark Signs <span class="aa">▼</span></div>
+        <div class="ab"><strong>Symptoms:</strong> ${d.sx}<br><br><div class="hl-a"><strong>🎯 Hallmark:</strong> ${d.hallmark}</div></div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">🧪 Diagnostics & Labs <span class="aa">▼</span></div>
+        <div class="ab"><strong>Tests:</strong> ${d.dx}<br><br><strong>Labs:</strong> ${d.labs}</div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">💊 Treatment & Medications <span class="aa">▼</span></div>
+        <div class="ab"><strong>Treatment:</strong> ${d.tx}<br><br><strong>Medications:</strong> ${d.meds}</div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">👩‍⚕️ Nursing Care & Monitoring <span class="aa">▼</span></div>
+        <div class="ab">${d.nursing}</div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">⚠️ Complications & Red Flags <span class="aa">▼</span></div>
+        <div class="ab"><strong>Complications:</strong> ${d.comp}<br><br><div class="hl-r"><strong>🚨 Red Flags:</strong> ${d.redflags}</div></div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">📚 Patient Teaching <span class="aa">▼</span></div>
+        <div class="ab">${d.teaching}</div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">⭐ NCLEX Pattern Recognition <span class="aa">▼</span></div>
+        <div class="ab">
+          <div class="hl-y"><strong>🎯 NCLEX Tip:</strong> ${d.nclex}</div>
+          <div class="hl-p" style="margin-top:7px"><strong>📝 Case Study Clue:</strong> ${d.caseClue}</div>
+        </div></div>
+    </div>
+  </div>`;
+}
+
+// ─────────────────────────────────────────────
+// UPPER GI DISEASES
+// ─────────────────────────────────────────────
+const upperDx=[
+  {name:'GERD',icon:'🔥',badge:'b-warn',badgeText:'COMMON',hy:true,
+   simple:'Stomach acid repeatedly backflows into esophagus causing chronic burning sensation.',
+   affected:'Lower esophagus / Lower Esophageal Sphincter (LES)',
+   def:'Gastroesophageal reflux disease — chronic backflow of gastric contents into esophagus due to LES incompetence or dysfunction.',
+   patho:'Weak or transiently relaxed LES → acid reflux → esophageal mucosal irritation → inflammation → erosion → Barrett\'s esophagus (precancerous change) if chronic.',
+   causes:'Obesity, pregnancy, hiatal hernia, smoking, alcohol, caffeine, fatty/spicy/acidic foods, lying flat after meals, certain medications (calcium channel blockers, anticholinergics, nitrates), large meals.',
+   sx:'Heartburn (burning substernal pain) worse after meals and lying down, regurgitation, water brash (excess salivation), dysphagia (if stricture develops), chronic cough, hoarseness, dental erosion, worsening at night.',
+   hallmark:'Heartburn WORSE after meals and lying flat. BETTER with antacids and sitting upright. Classic pattern: wakes at night with sour taste in mouth.',
+   dx:'EGD (gold standard — visualizes esophagus), 24-hour pH monitoring, esophageal manometry.',
+   labs:'Usually normal. Anemia if erosive esophagitis bleeding.',
+   tx:'Lifestyle modifications first. Antacids (immediate relief), H2 blockers (moderate suppression), PPIs (strongest — omeprazole). Avoid NSAIDs, alcohol, tobacco.',
+   meds:'Omeprazole 20-40mg PO daily (PPI — take 30-60 min BEFORE meals), famotidine (H2 blocker), calcium carbonate (antacid — immediate relief), metoclopramide (promotility if needed).',
+   nursing:'Elevate HOB 30-45° (whole head of bed, not just pillows). Small frequent meals. No lying down 2-3 hours after eating. Weight management. Avoid trigger foods.',
+   comp:'Barrett\'s esophagus (precancerous columnar metaplasia), esophageal stricture, esophagitis, aspiration pneumonia, esophageal adenocarcinoma.',
+   redflags:'Dysphagia (trouble swallowing) + odynophagia (pain swallowing) + unintentional weight loss + hematemesis → refer for EGD immediately.',
+   teaching:'Elevate HOB (means the actual bed frame, not extra pillows). Eat 5-6 small meals. No eating 3hr before bed. Lose weight if overweight. Avoid caffeine, alcohol, spicy/fatty foods, tight clothing.',
+   nclex:'HOB elevated = actual bed elevated 30-45°, NOT extra pillows. Wait 2-3hr after meals before lying down. Patient should NOT take antacid and immediately lie flat. PPIs taken BEFORE meals.',
+   caseClue:'Patient with burning chest pain worse after eating pizza and lying down, sour taste waking at night, relieved by TUMS. → GERD'},
+
+  {name:'Peptic Ulcer Disease (PUD)',icon:'⚠️',badge:'b-em',badgeText:'HIGH-RISK',hy:true,
+   simple:'Open sore (ulcer) in the stomach or duodenal lining caused by acid erosion — can bleed or perforate.',
+   affected:'Gastric mucosa (stomach) or duodenal mucosa (most common)',
+   def:'Erosion of gastric or duodenal mucosa extending beyond the muscularis mucosa. Gastric type or duodenal type (most common, 75%).',
+   patho:'Imbalance: acid/pepsin production exceeds mucosal protection. H.pylori weakens mucosa. NSAIDs block prostaglandins (the mucosal protectants). Acid erodes mucosa → ulcer crater → potential vessel erosion → bleed → perforation.',
+   causes:'H.pylori infection (70-80% of duodenal ulcers), NSAIDs/ASA (inhibit prostaglandins), alcohol, smoking, stress (physiologic stress in ICU), Zollinger-Ellison syndrome (rare gastrin-secreting tumor).',
+   sx:'Gastric ulcer: epigastric pain WORSE with eating (food stimulates acid). Duodenal ulcer: epigastric pain BETTER with eating (food buffers acid), returns 2-3hr after meals, awakens patient at night.',
+   hallmark:'PAIN TIMING is the key differentiator: Gastric = pain INCREASES with food. Duodenal = pain RELIEVED by food, returns 2-3hr AFTER eating.',
+   dx:'EGD (gold standard — directly visualizes and biopsies ulcer, tests for H.pylori), H.pylori testing (urea breath test, stool antigen, serology), upper GI barium swallow.',
+   labs:'Low H&H if bleeding. H.pylori positive (biopsy, stool antigen, or urea breath test). PT/INR if coagulopathy suspected.',
+   tx:'H.pylori eradication (triple therapy: PPI + amoxicillin + clarithromycin x14 days). PPIs (long-term). H2 blockers. Sucralfate (mucosal protectant). AVOID NSAIDs.',
+   meds:'Omeprazole (PPI — 30-60 min before meals), amoxicillin + clarithromycin (H.pylori triple therapy), sucralfate (Carafate — empty stomach x4/day), misoprostol (prostaglandin analog — if must take NSAIDs).',
+   nursing:'Monitor for complications (signs of bleed or perforation). Avoid NSAIDs, ASA, alcohol, smoking. Small bland meals. HOB elevated. Administer PPIs/sucralfate as ordered.',
+   comp:'GI bleed (most common — up to 15%), gastric outlet obstruction, perforation (surgical emergency), penetration into adjacent organs.',
+   redflags:'🚨 SUDDEN severe board-like rigid abdomen = PERFORATION → NPO, IV access, call MD STAT. Hematemesis + melena + tachycardia + hypotension = hemorrhage → EMERGENCY.',
+   teaching:'Take PPIs 30-60 min BEFORE first meal. Complete ALL antibiotics (even if feeling better). Avoid NSAIDs/ASA. No smoking/alcohol. Regular meals. Reduce stress. Follow-up to confirm H.pylori eradication.',
+   nclex:'NCLEX trap: Question any order for ibuprofen/NSAIDs in a PUD patient → this worsens PUD. H.pylori triple therapy: patient MUST complete full course. Pain timing: Gastric = worse with food; Duodenal = better with food.',
+   caseClue:'RA patient on daily ibuprofen with epigastric burning worse with eating, dark tarry stools, Hgb 8.2 g/dL. → Gastric PUD with upper GI bleed'},
+
+  {name:'Upper GI Bleed',icon:'🩸',badge:'b-em',badgeText:'EMERGENCY',hy:true,
+   simple:'Active bleeding from esophagus, stomach, or upper small intestine. Potentially life-threatening emergency.',
+   affected:'Esophagus, stomach, or duodenum (above ligament of Treitz)',
+   def:'Hemorrhage originating from any source above the ligament of Treitz. Medical emergency requiring immediate intervention.',
+   patho:'Causative lesion (ulcer, varix, tear) erodes blood vessel → hemorrhage → hematemesis (bright red or coffee-ground) and/or melena. Severe bleeding → hypovolemia → shock → organ failure.',
+   causes:'PUD (most common, ~50%), esophageal varices, Mallory-Weiss tear (forceful vomiting), erosive gastritis, esophagitis, cancer, angiodysplasia.',
+   sx:'Hematemesis (bright red = active fast bleed; coffee-ground = slower/digested blood), melena (black tarry foul stool), epigastric pain, tachycardia, hypotension, pallor, diaphoresis, dizziness.',
+   hallmark:'Coffee-ground emesis + black tarry stools + tachycardia + hypotension = upper GI bleed. EMERGENCY. Elevated BUN with normal creatinine = blood digested (protein source in gut).',
+   dx:'EGD (diagnostic AND therapeutic — can cauterize, band, or inject), CBC, BMP, coagulation studies (PT/INR), type & crossmatch, upright abdominal X-ray.',
+   labs:'Low H&H (hemoglobin/hematocrit), elevated BUN (blood digested → protein → urea), prolonged PT/INR if coagulopathy, low platelets if portal HTN.',
+   tx:'Emergent EGD (cauterization, banding, injection therapy), IV PPIs (protonix), octreotide (if varices), blood transfusion, surgical intervention if EGD fails.',
+   meds:'IV pantoprazole (Protonix) 80mg bolus → infusion, octreotide (somatostatin analog — reduces splanchnic blood flow for varices), vasopressin, blood products (PRBCs, FFP, platelets).',
+   nursing:'🚨 NPO immediately. 2 large-bore IVs (16-18 gauge). O₂ supplementation. Continuous VS monitoring q15min. Foley catheter (monitor UO). Blood transfusion PRN. Prepare for emergent EGD. AIRWAY is priority #1.',
+   comp:'Hypovolemic/hemorrhagic shock, aspiration pneumonia (vomiting blood), multi-organ failure, death. Recurrent bleeding after initial control.',
+   redflags:'🚨 Bright red hematemesis = call MD STAT. HR >100 + SBP <90 + altered LOC = hemorrhagic shock. FIRST: assess and protect AIRWAY (patient vomiting blood = aspiration risk).',
+   teaching:'After discharge: avoid ALL NSAIDs and alcohol. Follow-up EGD scheduled. Report dark stools or vomiting blood immediately — go to ER.',
+   nclex:'PRIORITY action in acute GI bleed: AIRWAY assessment first (aspiration from vomiting = risk), THEN establish 2 large-bore IVs. NOT antacids — needs IV medications. NPO immediately.',
+   caseClue:'Patient vomiting coffee-ground material, HR 118, BP 88/60, black stools x3 days, pale and diaphoretic. → Upper GI bleed with hemorrhagic shock — AIRWAY first, then 2 large-bore IVs'},
+
+  {name:'Esophageal Varices',icon:'🚨',badge:'b-em',badgeText:'LIFE-THREATENING',hy:true,
+   simple:'Enlarged, fragile, thin-walled veins in the esophagus caused by liver disease. Rupture causes massive, often fatal hemorrhage.',
+   affected:'Distal esophageal venous plexus / portal venous system',
+   def:'Dilated, tortuous submucosal veins in the esophageal wall caused by portal hypertension (usually from cirrhosis). Rupture = massive hemorrhage and high mortality.',
+   patho:'Liver fibrosis (cirrhosis) → ↑ resistance to portal blood flow → portal venous pressure rises → blood diverts through esophageal submucosal veins → dilate under pressure → become thin-walled and fragile → rupture → massive bleed.',
+   causes:'Cirrhosis (most common — 90%), portal hypertension, hepatic vein thrombosis (Budd-Chiari), schistosomiasis.',
+   sx:'Often completely silent until rupture. Rupture: sudden massive hematemesis (bright red blood, large volume), rapid onset hypotension, tachycardia, shock. May have preceding melena.',
+   hallmark:'Cirrhosis history + SUDDEN MASSIVE bright red hematemesis = esophageal varices rupture. TRUE EMERGENCY. Mortality 15-25% per episode.',
+   dx:'Emergent EGD (diagnostic AND therapeutic — band ligation or sclerotherapy), portal pressure measurements. Labs: elevated LFTs, low platelets, prolonged PT/INR.',
+   labs:'Elevated ALT/AST/bilirubin, low platelets (hypersplenism), prolonged PT/INR, low albumin. These all reflect underlying liver disease.',
+   tx:'Emergent EGD with band ligation (preferred) or sclerotherapy. Octreotide infusion (first-line vasoconstrictor). Vasopressin. Sengstaken-Blakemore tube (balloon tamponade — refractory). TIPS procedure. Propranolol (prophylaxis).',
+   meds:'Octreotide (somatostatin analog — reduces splanchnic blood flow, first-line medical treatment), vasopressin, propranolol/nadolol (non-selective beta-blockers for prophylaxis — reduce portal pressure).',
+   nursing:'🚨 EMERGENCY PROTOCOL: NPO, 2 large-bore IVs, octreotide infusion, O₂, continuous VS monitoring, prepare for emergent EGD. If Sengstaken-Blakemore tube placed: KEEP SCISSORS AT BEDSIDE — airway emergency if tube migrates.',
+   comp:'Massive hemorrhage → hypovolemic shock → death. Aspiration pneumonia. Hepatic encephalopathy (triggered by blood = protein in gut → ammonia). Recurrent bleeding (60-70% without treatment).',
+   redflags:'🚨 Any cirrhosis patient with sudden hematemesis = assume variceal bleed. AIRWAY #1 priority (massive blood vomiting = high aspiration risk). Sengstaken-Blakemore tube = SCISSORS MUST be at bedside.',
+   teaching:'Absolute alcohol cessation (worsens cirrhosis). Take propranolol DAILY as prescribed. Attend regular surveillance EGD. Report ANY blood in vomit immediately — call 911.',
+   nclex:'⭐ NCLEX CLASSIC: Sengstaken-Blakemore tube → nurse MUST keep scissors at bedside to cut tube if airway becomes obstructed. This appears on NCLEX repeatedly. Octreotide = first-line medical treatment for varices.',
+   caseClue:'Patient with known cirrhosis suddenly vomits large amount of bright red blood. BP 78/50, HR 134, obtunded. → Esophageal varices rupture → emergent EGD + octreotide infusion. SCISSORS at bedside if S-B tube.'},
+
+  {name:'Barrett\'s Esophagus',icon:'⚡',badge:'b-warn',badgeText:'PRECANCEROUS',hy:false,
+   simple:'Chronic acid exposure transforms normal esophageal cells into intestinal-type cells — a precancerous change requiring surveillance.',
+   affected:'Lower esophageal mucosa (squamocolumnar junction)',
+   def:'Metaplastic change of normal stratified squamous epithelium to specialized columnar (intestinal-type) epithelium in the distal esophagus due to chronic GERD. Precancerous condition.',
+   patho:'Chronic acid exposure → repetitive mucosal damage → squamous epithelium replaced by intestinal columnar epithelium (metaplasia) → dysplasia progression (low → high grade) → esophageal adenocarcinoma.',
+   causes:'Chronic GERD (main risk factor), obesity, smoking, male sex, Caucasian race, age >50, long-standing hiatal hernia.',
+   sx:'Often asymptomatic (discovered incidentally during EGD). Ongoing GERD symptoms. Dysphagia, weight loss, and odynophagia indicate possible cancer progression.',
+   hallmark:'Long history of GERD + EGD showing salmon-pink columnar-lined esophagus (instead of white squamous). Biopsy confirms specialized intestinal metaplasia.',
+   dx:'EGD with biopsy (definitive — shows intestinal metaplasia and grade of dysplasia). Surveillance EGD every 3-5 years for no dysplasia; more frequent for dysplasia.',
+   labs:'Normal unless adenocarcinoma develops (then anemia, elevated CEA).',
+   tx:'Continuous high-dose PPIs (reduces acid, slows progression), lifestyle modifications. Endoscopic ablation (radiofrequency ablation — RFA) for high-grade dysplasia. Surgery if adenocarcinoma.',
+   meds:'Omeprazole or lansoprazole (high-dose PPI — continuous therapy). Aspirin may reduce cancer risk (emerging evidence but not standard of care).',
+   nursing:'Emphasize strict PPI compliance. Reinforce importance of ALL scheduled surveillance endoscopies. Continue all GERD lifestyle modifications. Educate about cancer warning signs.',
+   comp:'Esophageal adenocarcinoma (most serious complication — 0.5% per year risk per patient with Barrett\'s, higher with dysplasia).',
+   redflags:'Dysphagia (difficulty swallowing), odynophagia (pain with swallowing), unintentional weight loss, worsening symptoms despite PPIs → possible malignant progression → urgent EGD.',
+   teaching:'MUST attend ALL surveillance endoscopy appointments — this is not optional. PPIs reduce acid but do NOT reverse Barrett\'s changes. No smoking. Follow all GERD lifestyle recommendations.',
+   nclex:'Teaching priority = attend surveillance EGD schedule. Barrett\'s is precancerous → can progress to adenocarcinoma. PPIs do not reverse Barrett\'s — they slow progression. Surveillance EGD = most important teaching point.',
+   caseClue:'55-year-old male with 20-year GERD history gets scheduled EGD. Biopsy shows specialized intestinal metaplasia. → Barrett\'s esophagus — education: surveillance EGDs are mandatory, PPIs daily'},
+
+  {name:'Gastritis',icon:'🟠',badge:'b-warn',badgeText:'COMMON',hy:false,
+   simple:'Inflammation of the stomach lining — can be brief (acute) or long-term (chronic), and can erode into ulcers.',
+   affected:'Gastric mucosa (stomach lining)',
+   def:'Inflammation of the gastric mucosa. Acute (sudden onset, usually reversible) or chronic (ongoing, may cause permanent damage). Can be erosive or non-erosive.',
+   patho:'H.pylori or NSAIDs/alcohol → disrupt the mucosa\'s protective barrier → gastric acid directly damages the mucosal lining → inflammation → erosion → possible ulcer formation → bleeding if blood vessel eroded.',
+   causes:'H.pylori infection (most common cause of chronic gastritis), NSAIDs/ASA (COX-1 inhibition), alcohol (direct mucosal toxin), physiologic stress (ICU — stress gastritis), bile reflux, autoimmune (pernicious anemia — destroys parietal cells).',
+   sx:'Epigastric burning pain, nausea, vomiting, anorexia, bloating, indigestion, belching. Erosive gastritis: hematemesis, melena, signs of blood loss.',
+   hallmark:'Epigastric burning + N/V + history of NSAIDs or alcohol use. May be completely asymptomatic (especially H.pylori). If GI bleed develops → hematemesis or melena.',
+   dx:'EGD with biopsy (gold standard — confirms inflammation and H.pylori), H.pylori testing (urea breath test, stool antigen), CBC if bleeding suspected.',
+   labs:'Low H&H if bleeding, H.pylori positive, elevated WBC if infectious, low B12 (autoimmune gastritis destroys intrinsic factor).',
+   tx:'Remove causative agent (stop NSAIDs, alcohol), PPIs/H2 blockers/antacids for acid reduction. H.pylori: triple therapy (PPI + amoxicillin + clarithromycin x14 days). Iron/B12 replacement if deficient.',
+   meds:'Omeprazole (PPI), famotidine (H2 blocker), amoxicillin + clarithromycin (H.pylori triple therapy), bismuth subsalicylate (Pepto-Bismol — additional H.pylori coverage).',
+   nursing:'Avoid NSAIDs, alcohol, spicy foods. Monitor stool color and patient for signs of GI bleed. Administer acid-reducing medications. Educate on H.pylori treatment compliance.',
+   comp:'Peptic ulcer disease, upper GI bleed, gastric cancer (chronic untreated H.pylori), pernicious anemia (autoimmune gastritis → no intrinsic factor → no B12 absorption → megaloblastic anemia).',
+   redflags:'Hematemesis, melena, hypotension, tachycardia = acute GI bleed → EMERGENCY. Unintentional weight loss + early satiety + persistent pain → may indicate gastric cancer.',
+   teaching:'Take NSAIDs with food or use misoprostol if must continue NSAIDs. Limit alcohol. Complete FULL course of H.pylori antibiotics even when feeling better. Follow-up to confirm eradication.',
+   nclex:'H.pylori triple therapy: patient MUST complete all antibiotics — non-compliance = treatment failure = ulcer returns. Autoimmune gastritis → lack of intrinsic factor → B12 deficiency → pernicious anemia.',
+   caseClue:'Long-term ibuprofen user for arthritis with epigastric burning + dark tarry stools. CBC: Hgb 9.4. → Erosive gastritis/PUD with upper GI bleed → stop NSAIDs, EGD, H.pylori testing'},
+
+  {name:'Achalasia',icon:'🟡',badge:'b-info',badgeText:'MOTILITY DISORDER',hy:false,
+   simple:'The valve between esophagus and stomach cannot relax properly — food cannot pass through. Both solids AND liquids are affected.',
+   affected:'Lower esophageal sphincter (LES) and esophageal smooth muscle',
+   def:'Primary esophageal motility disorder characterized by incomplete LES relaxation with swallowing plus absence of peristalsis in the esophageal body.',
+   patho:'Degeneration of inhibitory neurons in the myenteric plexus (Auerbach\'s plexus) → LES cannot relax → food accumulates in dilated esophagus → regurgitation → aspiration pneumonia risk.',
+   causes:'Idiopathic (most common — cause unknown), Chagas disease (Trypanosoma cruzi — South America), secondary to esophageal cancer (pseudoachalasia), autoimmune.',
+   sx:'Progressive dysphagia to BOTH solids AND liquids (key differentiator — cancer usually starts with solids only), regurgitation of undigested food (especially at night → aspiration risk), chest pain, weight loss, nocturnal cough.',
+   hallmark:'Dysphagia to BOTH solids AND liquids simultaneously. Regurgitation of undigested food (not digested = was never in stomach). Worsens when lying flat (nocturnal aspiration).',
+   dx:'Barium swallow (bird-beak or rat-tail narrowing at LES — classic X-ray finding), esophageal manometry (gold standard — shows absent LES relaxation and no peristalsis), EGD (rules out cancer).',
+   labs:'Usually normal. Weight loss may cause metabolic changes.',
+   tx:'Pneumatic dilation (balloon dilation of LES), Heller myotomy (surgical — cuts LES muscle), POEM procedure (peroral endoscopic myotomy — newer), botulinum toxin injection (temporary — for non-surgical candidates).',
+   meds:'Nifedipine (calcium channel blocker — relaxes LES temporarily), isosorbide dinitrate (nitrate — bridge therapy before definitive procedure).',
+   nursing:'Aspiration precautions! HOB elevated especially during and after meals and at night. Small frequent meals of soft or liquid consistency. Monitor for aspiration pneumonia (fever, cough, decreased SpO2).',
+   comp:'Aspiration pneumonia (major risk from nocturnal regurgitation), esophageal dilatation and megaesophagus, esophageal cancer (long-term increased risk), malnutrition from dysphagia.',
+   redflags:'Fever + productive cough + decreased SpO2 after regurgitation episode = aspiration pneumonia. Significant weight loss (malnutrition). Sudden pain worsening (may indicate esophageal cancer).',
+   teaching:'Sit upright during meals and for 2-3hr after. Chew thoroughly, eat slowly. Soft or liquid foods preferred. HOB elevated during sleep. Avoid eating near bedtime. Report fever or cough (aspiration signs).',
+   nclex:'Achalasia vs esophageal cancer: BOTH solids AND liquids = achalasia. SOLIDS only first (then progresses to liquids) = cancer. This is a HIGH-YIELD differentiator on NCLEX. Bird-beak appearance on barium swallow = achalasia.',
+   caseClue:'Patient with 6-month history of dysphagia to both solid AND liquid foods, regurgitates undigested food at night, losing weight. Barium swallow shows "bird-beak" narrowing. → Achalasia'}
+];
+
+document.getElementById('upper-dx').innerHTML=upperDx.map(buildDC).join('');
+
+// ─────────────────────────────────────────────
+// LOWER GI DISEASES
+// ─────────────────────────────────────────────
+const lowerDx=[
+  {name:'Appendicitis',icon:'🚨',badge:'b-em',badgeText:'SURGICAL EMERGENCY',hy:true,
+   simple:'Appendix gets inflamed and blocked. If untreated, it ruptures, causing life-threatening infection throughout the abdomen.',
+   affected:'Appendix (vermiform appendix at cecum junction, RLQ)',
+   def:'Acute inflammation of the vermiform appendix due to luminal obstruction leading to bacterial overgrowth, distension, ischemia, necrosis, and potential perforation.',
+   patho:'Obstruction of appendiceal lumen (fecalith, lymphoid hyperplasia, tumor) → bacterial overgrowth → increased intraluminal pressure → ischemia → necrosis → perforation → peritonitis and sepsis.',
+   causes:'Fecalith (hardened stool/calcium deposits — most common in adults), lymphoid hyperplasia (viral illness — most common in children/young adults), tumor (older adults), foreign body.',
+   sx:'Classic progression: dull periumbilical or epigastric pain → migrates to RLQ at McBurney\'s point within 12-24 hours. Nausea, vomiting (after pain onset), fever, anorexia, rebound tenderness, guarding.',
+   hallmark:'Pain starts periumbilical → migrates to RLQ (McBurney\'s point). Rebound tenderness. Rovsing\'s sign (LLQ pressure → RLQ pain). Psoas sign. Fever. ↑ WBC 10,000-18,000.',
+   dx:'CT abdomen/pelvis with contrast (gold standard — 95% sensitivity). Ultrasound (preferred in children and pregnant women). CBC with differential.',
+   labs:'WBC 10,000-18,000 with left shift (bands), elevated C-reactive protein (CRP), urinalysis (to rule out UTI/kidney stone).',
+   tx:'Appendectomy (laparoscopic preferred — can be open). IV antibiotics preoperatively. NPO immediately. Pain management (opioids — DOES NOT mask symptoms enough to delay diagnosis).',
+   meds:'IV cefoxitin or piperacillin-tazobactam (pre-op), IV morphine or hydromorphone (pain management — safe to administer), IV fluids for hydration.',
+   nursing:'🚨 NPO IMMEDIATELY (will need surgery!). IV access. Adequate pain management. NO laxatives, NO enemas, NO heat pads to abdomen. Monitor for perforation signs. Surgical consent.',
+   comp:'Perforation → peritonitis → intra-abdominal abscess → sepsis → death. Post-op wound infection. Bowel obstruction (adhesions post-op).',
+   redflags:'🚨 Pain that SUDDENLY IMPROVES then WORSENS = possible perforation (pressure releases, then peritonitis develops). Board-like rigid abdomen = peritonitis. Fever spike with rigors = sepsis.',
+   teaching:'Post-op: ambulate early to prevent adhesions. Wound care as instructed. Report fever >101.5°F, worsening pain, redness at incision. Return to ER if symptoms recur.',
+   nclex:'NEVER give laxatives, enemas, or apply heat to abdomen with suspected appendicitis — can cause perforation. Pain suddenly resolves in appendicitis patient → this is a red flag (perforation), not improvement. Call MD immediately.',
+   caseClue:'22-year-old female: periumbilical pain for 6hr now moved to RLQ, fever 38.9°C, WBC 16,200, rebound tenderness at McBurney\'s point, N/V. → Appendicitis → NPO, IV access, surgical consult, NO enemas.'},
+
+  {name:'Diverticulitis',icon:'🟠',badge:'b-warn',badgeText:'URGENT',hy:true,
+   simple:'Small pouches in the colon wall (diverticula) become infected or inflamed, causing LLQ pain and fever.',
+   affected:'Sigmoid colon (most common location, ~70% of cases)',
+   def:'Inflammation and/or infection of one or more diverticula (small mucosal herniations through the colon wall). Diverticulosis = pouches present but asymptomatic. Diverticulitis = pouches inflamed/infected.',
+   patho:'Low-fiber diet → small stool bulk → high intraluminal pressure needed → mucosal herniations form (diverticula) → fecal matter traps inside diverticulum → bacteria proliferate → micro-perforation → pericolic inflammation → diverticulitis.',
+   causes:'Low-fiber diet (primary risk), chronic constipation, age >40 (prevalence increases with age), obesity, sedentary lifestyle, NSAIDs/aspirin use, smoking.',
+   sx:'LLQ pain (most common presentation — "left-sided appendicitis"), fever, nausea, vomiting, altered bowel habits (constipation or diarrhea), abdominal bloating. May have rectal bleeding if diverticular hemorrhage.',
+   hallmark:'LLQ pain + fever + constipation history = diverticulitis. "Left-sided appendicitis." Common in patients >50 with history of constipation/low-fiber diet.',
+   dx:'CT abdomen/pelvis with IV contrast (gold standard — shows inflamed diverticula, pericolic fat stranding, abscess). CBC. Colonoscopy CONTRAINDICATED during acute phase (perforation risk).',
+   labs:'Elevated WBC with left shift, elevated CRP, fecal occult blood (if hemorrhage).',
+   tx:'Mild (uncomplicated): oral antibiotics (ciprofloxacin + metronidazole) + clear liquid diet + outpatient management. Severe: IV antibiotics + NPO + hospitalization. Complicated (abscess, perforation): drainage ± surgery.',
+   meds:'Ciprofloxacin 500mg BID + metronidazole 500mg TID (oral — mild), or piperacillin-tazobactam IV (severe/hospitalized). IV fluids for hydration.',
+   nursing:'NPO or clear liquids during acute phase. IV antibiotics as ordered. Monitor for perforation signs (rigid abdomen, absent bowel sounds, high fever). Pain management. After resolution: high-fiber diet education.',
+   comp:'Perforation → peritonitis (surgical emergency), abscess formation (may need CT-guided drainage), fistula formation (colovesical = pneumaturia + UTIs), bowel obstruction, recurrent diverticulitis.',
+   redflags:'🚨 LLQ pain + fever + RIGID ABDOMEN + absent bowel sounds = perforation → surgical emergency. Pneumaturia (gas bubbles in urine during urination) = colovesical fistula → needs surgery.',
+   teaching:'High-fiber diet 25-35g/day (fruits, vegetables, whole grains). Adequate hydration (8+ glasses water/day). Regular exercise. Note: nut/seed restriction is OUTDATED — evidence shows no association with diverticulitis.',
+   nclex:'Colonoscopy is ABSOLUTELY CONTRAINDICATED in acute diverticulitis (perforation risk from air and instrument pressure). Wait 6-8 weeks after resolution before scheduling colonoscopy.',
+   caseClue:'68-year-old with LLQ pain x3 days, fever 38.5°C, WBC 14,000, history of constipation and low-fiber diet. CT: thickened sigmoid colon with pericolic fat stranding. → Diverticulitis → IV antibiotics, NPO'},
+
+  {name:'C. difficile Infection',icon:'🦠',badge:'b-em',badgeText:'INFECTION CONTROL',hy:true,
+   simple:'Bacterial infection of the colon after antibiotics kill normal gut bacteria. Causes severe diarrhea. Highly contagious — requires special precautions.',
+   affected:'Colon (large intestine)',
+   def:'Clostridioides difficile (formerly Clostridium difficile) infection — toxin-producing bacteria cause colitis after disruption of normal intestinal flora, usually by antibiotic use.',
+   patho:'Antibiotics disrupt normal gut microbiome → C.diff spores (from environment) germinate → toxins A (enterotoxin) and B (cytotoxin) → colonic mucosal damage → pseudomembranous colitis → profuse watery diarrhea → toxic megacolon risk.',
+   causes:'Recent antibiotic use (clindamycin, fluoroquinolones, and cephalosporins are highest risk), hospitalization (spores in environment), age >65, immunosuppression, PPI use (alters gut pH), GI surgery.',
+   sx:'Watery diarrhea ≥3 per day (can be 10-15+), foul odor (distinctive and characteristic), abdominal cramping, low-grade to high fever, nausea. Severe: high fever, leukocytosis, peritoneal signs.',
+   hallmark:'Watery diarrhea + recent antibiotic use = C.diff until proven otherwise. Characteristically foul-smelling stool. Often in hospitalized or recently hospitalized patients.',
+   dx:'Stool PCR for C.diff toxin genes (most sensitive and specific — test of choice). Stool enzyme immunoassay (EIA). Colonoscopy shows pseudomembranes (gold standard visual but rarely needed).',
+   labs:'WBC dramatically elevated — often 20,000-40,000 (leukemoid reaction is characteristic). Elevated CRP, low albumin if severe. Low potassium from diarrhea losses.',
+   tx:'Stop offending antibiotic if possible. Oral vancomycin (125-500mg QID x10 days — FIRST-LINE) or fidaxomicin. Metronidazole (alternative). Fecal microbiota transplant (FMT) for recurrent C.diff (very effective).',
+   meds:'Oral vancomycin (Vancocin — acts LOCALLY in gut, NOT absorbed systemically — no level monitoring needed), fidaxomicin (Dificid — narrower spectrum, better for recurrence prevention), bezlotoxumab (monoclonal antibody — prevents recurrence).',
+   nursing:'🚨 CONTACT PRECAUTIONS: gown + gloves for all contact. SOAP AND WATER handwashing (alcohol-based gel does NOT kill C.diff spores — CRITICAL). Private room preferred. Environmental cleaning with bleach-based products ONLY.',
+   comp:'Severe dehydration, electrolyte imbalances (hypokalemia), pseudomembranous colitis, toxic megacolon (EMERGENCY), colonic perforation, sepsis, recurrent C.diff (20-30% recurrence rate even with treatment).',
+   redflags:'🚨 Abdominal distention + fever + dramatically elevated WBC + CESSATION of diarrhea (paradoxical — colon stops moving) = possible toxic megacolon. EMERGENCY — no enemas, no opioids, NPO, surgical consult.',
+   teaching:'Complete full antibiotic course. Wash hands with SOAP and WATER (not hand sanitizer) after bathroom. Thorough hand hygiene prevents spreading spores. Probiotics may help. Avoid unnecessary antibiotics.',
+   nclex:'CRITICAL FOR NCLEX: C.diff hand hygiene = SOAP AND WATER ONLY. Alcohol gel does NOT kill spores. Environmental cleaning = BLEACH (not standard disinfectants). NEVER give loperamide (antidiarrheal) — traps toxins → toxic megacolon.',
+   caseClue:'Day 8 post-hip replacement, on clindamycin, now 10-12 foul-smelling watery stools/day, WBC 26,000, fever 38.7°C. → C.diff → CONTACT precautions + SOAP and water handwashing + oral vancomycin'},
+
+  {name:'Colorectal Cancer',icon:'🎗️',badge:'b-warn',badgeText:'SCREENING',hy:true,
+   simple:'Cancer of the large intestine or rectum — usually develops slowly over years from polyps. Highly curable if caught early with screening.',
+   affected:'Colon and/or rectum (large intestine)',
+   def:'Malignant neoplasm of the colon or rectum. Most common GI cancer. Approximately 90% arise from adenomatous polyps that undergo malignant transformation over 10-15 years.',
+   patho:'Normal colon mucosa → adenomatous polyp (benign) → low-grade dysplasia → high-grade dysplasia → invasive carcinoma. Genetic mutations (APC, KRAS, p53). Slow progression allows for screening to intercept cancer.',
+   causes:'Age >45-50 (strongest risk), personal or family history of colorectal cancer or adenomatous polyps, long-standing IBD (UC and Crohn\'s), high-fat/processed meat/low-fiber diet, obesity, physical inactivity, smoking, alcohol, Lynch syndrome/FAP (hereditary).',
+   sx:'Change in bowel habits (new constipation or diarrhea persisting >2 weeks), rectal bleeding or blood in stool, narrow/pencil-thin stools (suggests rectal mass), abdominal cramping/pain, fatigue, unintentional weight loss, iron deficiency anemia (occult bleeding).',
+   hallmark:'Change in bowel habits + rectal bleeding + pencil-thin stools + iron deficiency anemia in an older adult = colorectal cancer until proven otherwise by colonoscopy.',
+   dx:'Colonoscopy (gold standard — visualizes AND removes polyps), CT colonography (virtual colonoscopy), FOBT (fecal occult blood test — annual screening), Cologuard (stool DNA test), sigmoidoscopy, CEA (carcinoembryonic antigen — for MONITORING, not screening).',
+   labs:'Iron deficiency anemia (low H&H, low ferritin, low MCV), positive fecal occult blood, elevated CEA (post-diagnosis for monitoring treatment response), elevated LFTs if liver metastasis.',
+   tx:'Surgery (colectomy — primary treatment, potentially curative stages I-III). Chemotherapy (FOLFOX, FOLFIRI — adjuvant or palliative). Radiation (primarily for rectal cancer). Targeted therapy (bevacizumab, cetuximab). Immunotherapy (for MSI-H tumors).',
+   meds:'Chemotherapy: 5-fluorouracil (5-FU), oxaliplatin, irinotecan, capecitabine. Targeted: bevacizumab (anti-VEGF), cetuximab (anti-EGFR). Analgesics for pain management.',
+   nursing:'Educate on screening importance (colonoscopy starting at 45 for average risk). Post-colostomy care education (body image, skin care, pouching). Nutritional support. Psychological support for diagnosis and body changes.',
+   comp:'Liver metastasis (most common site), lung metastasis, bowel obstruction (from tumor), perforation, recurrence, iron deficiency anemia, poor prognosis stage IV.',
+   redflags:'Any rectal bleeding in adults >40 requires investigation — do NOT assume hemorrhoids without ruling out cancer. Weight loss + fatigue + bleeding = colonoscopy referral urgently. CEA rising after surgery = recurrence.',
+   teaching:'Screening starting at age 45 (updated 2021 US guidelines for average risk). FIT (fecal immunochemical test) annually. Increase dietary fiber. Reduce processed/red meat consumption. Maintain healthy weight. Exercise regularly.',
+   nclex:'CEA is NOT a screening test — used to MONITOR treatment response after diagnosis. Colonoscopy = both diagnostic AND therapeutic (can remove polyps). Screening starts at 45, earlier if family history or IBD.',
+   caseClue:'58-year-old male reports pencil-thin stools x6 weeks, blood in stool, 15-lb weight loss, Hgb 9.1, fatigue. → Colorectal cancer until proven otherwise → urgent colonoscopy with biopsy'},
+
+  {name:'Bowel Obstruction',icon:'🚫',badge:'b-em',badgeText:'EMERGENCY',hy:true,
+   simple:'A physical blockage in the intestines prevents food, fluid, and gas from passing through. Can be from a physical object (mechanical) or the bowel not moving (functional/ileus).',
+   affected:'Small intestine (most common, ~80%) or large intestine',
+   def:'Partial or complete blockage of the intestinal lumen preventing passage of contents. Mechanical (physical obstruction) or functional/adynamic (paralytic ileus — no physical block but peristalsis absent).',
+   patho:'Mechanical: adhesions, hernia, tumor block lumen → proximal bowel distends with fluid and gas → accumulation → vascular compromise → strangulation (blood supply cut off) → ischemia → necrosis → perforation. Functional: bowel loses peristalsis (post-op, opioids, electrolyte imbalances).',
+   causes:'Small bowel: intra-abdominal adhesions (most common post-surgical), inguinal hernias, intussusception, volvulus, Crohn\'s strictures. Large bowel: colorectal cancer (most common cause in elderly), diverticulitis, volvulus, fecal impaction.',
+   sx:'Colicky (crampy, wave-like) abdominal pain, nausea, vomiting (bilious/feculent with small bowel obstruction), abdominal distention, ABSENT flatus and BM (complete), hypertympanic abdomen on percussion. Bowel sounds: initially hyperactive and high-pitched, then absent.',
+   hallmark:'Distension + absence of flatus + vomiting + high-pitched tinkling bowel sounds → absent bowel sounds = mechanical obstruction. "The gas that won\'t pass." Air-fluid levels on abdominal X-ray.',
+   dx:'Abdominal X-ray (air-fluid levels, dilated loops of bowel — most accessible initial test), CT abdomen/pelvis (gold standard — identifies location, cause, and complications), contrast studies.',
+   labs:'Elevated WBC if strangulated or infected. Hypokalemia (from vomiting — critical to correct as hypoK worsens ileus). Elevated BUN/creatinine (dehydration). Metabolic alkalosis (from vomiting HCl).',
+   tx:'NG tube decompression (decompress proximal bowel, relieve vomiting). IV fluids and electrolyte replacement. NPO. Serial abdominal exams. If strangulated, perforated, or complete mechanical obstruction: SURGICAL EXPLORATION.',
+   meds:'IV fluids (NS or LR), potassium replacement (critical — hypoK worsens ileus), IV antibiotics if infection/strangulation suspected. DO NOT give laxatives or enemas.',
+   nursing:'🚨 NPO immediately. Insert NG tube (to low intermittent suction). IV fluids. Accurate I&O. Auscultate bowel sounds every 4 hours. Monitor for peritonitis signs. Prepare for potential emergency surgery.',
+   comp:'Strangulation → intestinal necrosis (requires bowel resection), perforation → peritonitis → sepsis, hypovolemia and shock, short bowel syndrome (if extensive resection needed).',
+   redflags:'🚨 Strangulation signs: SUDDEN ONSET severe constant pain (no longer colicky) + fever + absent bowel sounds + peritoneal signs + tachycardia = SURGICAL EMERGENCY within hours.',
+   teaching:'Post-op: early ambulation PREVENTS adhesion formation (most important post-op instruction). Adequate fluid and fiber intake long-term. Report inability to pass gas or stool after surgery.',
+   nclex:'DO NOT give laxatives or enemas for suspected bowel obstruction — can cause perforation. Small bowel obstruction = early, severe vomiting + less distention. Large bowel obstruction = profound distention + later vomiting. Early ambulation post-op prevents adhesions.',
+   caseClue:'Post-op day 3 after abdominal surgery: distended abdomen, no flatus, high-pitched tinkling → now absent bowel sounds, N/V, abdominal X-ray shows air-fluid levels. → Bowel obstruction → NG tube, NPO, IV fluids'},
+
+  {name:'Fecal Impaction',icon:'🟤',badge:'b-warn',badgeText:'URGENT',hy:false,
+   simple:'A large, hard mass of stool stuck in the rectum that cannot be passed normally. Can cause paradoxical diarrhea as liquid stool leaks around the hard mass.',
+   affected:'Rectum (most common) or sigmoid colon',
+   def:'Accumulation of hardened, desiccated feces in the rectum or sigmoid colon forming a mass that cannot be expelled by normal defecation effort.',
+   patho:'Chronic constipation → prolonged stool retention → excessive water reabsorption from stool → rock-hard fecal mass → blocks rectum → liquid stool from higher up leaks around mass → "overflow" or "paradoxical" diarrhea (misleading clinical sign).',
+   causes:'Opioid/narcotic use (highly constipating), prolonged immobility/bedrest, dehydration, low-fiber diet, elderly patients, hypothyroidism, Parkinson\'s disease, anticholinergic medications, ignoring urge to defecate.',
+   sx:'No bowel movement for days (or weeks), rectal fullness and pressure, PARADOXICAL LIQUID DIARRHEA (key sign — liquid leaks around hard mass), abdominal cramping, nausea, loss of appetite, rectal pain, overflow urinary incontinence possible.',
+   hallmark:'PARADOXICAL DIARRHEA in a chronically constipated patient = fecal impaction until proven otherwise. Patient has loose/liquid stools despite underlying severe constipation — liquid is leaking around the mass.',
+   dx:'Digital rectal exam (palpates hard fecal mass directly — most important diagnostic step), abdominal X-ray (shows impaction pattern), abdominal assessment.',
+   labs:'Usually normal. May have elevated WBC if prolonged. Electrolyte imbalances from inadequate intake.',
+   tx:'Manual digital disimpaction (first-line — RN with MD order required in most facilities). Oil retention enema (softens mass first). Lactulose or polyethylene glycol (MiraLax) after disimpaction cleared. Prevent recurrence.',
+   meds:'Docusate sodium (stool softener — prevention), bisacodyl suppository (stimulates rectal evacuation), lactulose (osmotic — draws water into stool), mineral oil enema (lubrication), polyethylene glycol (MiraLax — softens stool).',
+   nursing:'Obtain MD order for digital disimpaction. Lubricate finger well. Perform gently and slowly. Monitor for vasovagal response (bradycardia, hypotension, diaphoresis) during procedure — STOP if occurs, lay patient flat, notify MD. Document findings.',
+   comp:'Bowel perforation (rare — from pressure or rough disimpaction technique), rectal tears or bleeding, hemorrhoids, urinary retention, vagal response during disimpaction, recurrence (if underlying cause not addressed).',
+   redflags:'Vasovagal response during disimpaction: sudden bradycardia + hypotension + diaphoresis → STOP procedure immediately, lay flat, notify MD. Signs of bowel perforation: sudden severe pain + guarding.',
+   teaching:'Daily fiber intake (25-35g/day). 8+ glasses of water daily. Regular physical activity. Do NOT ignore the urge to defecate. Review opioid constipation management if applicable. Establish regular bowel routine.',
+   nclex:'Paradoxical diarrhea in constipated patient = fecal impaction. Do NOT give more anti-diarrheals — will worsen impaction. Digital disimpaction requires a physician order in most facilities. Vasovagal response = stop procedure immediately.',
+   caseClue:'Elderly nursing home resident on opioids, no BM x10 days, now passing liquid stool. Digital rectal exam reveals hard mass. → Fecal impaction → disimpaction (with MD order), stool softeners, increased fluids/fiber'},
+
+  {name:'Hemorrhoids',icon:'🔴',badge:'b-warn',badgeText:'COMMON',hy:false,
+   simple:'Swollen, enlarged veins in and around the rectum and anus — like varicose veins of the rectum. Can cause bleeding, pain, and itching.',
+   affected:'Internal and/or external rectal/anal venous plexus',
+   def:'Enlarged, engorged blood vessels within the anal canal. Internal hemorrhoids are above the dentate line (painless, bleed). External hemorrhoids are below the dentate line (painful, can thrombose).',
+   patho:'Increased intrarectal pressure from straining, constipation, pregnancy, or portal hypertension → chronic venous congestion → venous engorgement and dilation → hemorrhoid formation.',
+   causes:'Chronic constipation with straining (most common), pregnancy (pressure from uterus + hormonal changes), portal hypertension (from cirrhosis), obesity, low-fiber diet, prolonged sitting (especially on toilet), hereditary predisposition.',
+   sx:'Internal: painless bright red rectal bleeding (blood on toilet paper or in bowl), mucus discharge, prolapse (Grade I-IV). External: painful, swollen perianal lump, itching, difficulty with hygiene. Thrombosed external: severe acute perianal pain, tender blue-purple mass.',
+   hallmark:'Bright red blood on toilet paper with painless defecation = internal hemorrhoid. Painful, firm perianal lump after straining = thrombosed external hemorrhoid.',
+   dx:'Digital rectal exam (DRE), anoscopy (visualizes internal hemorrhoids directly), sigmoidoscopy. Colonoscopy when colorectal cancer needs to be excluded (any rectal bleeding in patients >40).',
+   labs:'Iron deficiency anemia if chronic bleeding (low hemoglobin, low ferritin, microcytic anemia). Otherwise normal.',
+   tx:'Conservative: sitz baths (warm water 15-20 min 3x/day), high-fiber diet, stool softeners, topical agents, increased hydration. Procedural: rubber band ligation (most effective for internal), sclerotherapy, infrared coagulation. Surgical: hemorrhoidectomy (grades III-IV or failed conservative).',
+   meds:'Docusate sodium (Colace — stool softener), psyllium (Metamucil — fiber supplement), topical lidocaine + hydrocortisone cream (symptomatic relief), witch hazel pads (cooling/astringent).',
+   nursing:'Warm sitz baths after each BM (15-20 min — use warm, NOT hot, water). High-fiber diet education. Stool softeners as prescribed. Topical medications for comfort. Avoid prolonged sitting on toilet.',
+   comp:'Chronic iron deficiency anemia from recurrent bleeding, prolapse (requires manual reduction or surgery), thrombosis (painful, may need emergency thrombectomy), strangulation (rare — emergency).',
+   redflags:'Rectal bleeding in adults >40 → DO NOT automatically attribute to hemorrhoids — ALWAYS rule out colorectal cancer. Dark blood, pencil-thin stools, weight loss, or change in bowel habits ≠ hemorrhoids → colonoscopy.',
+   teaching:'High-fiber diet (25-35g/day). Drink 8 glasses water daily. Avoid straining. Respond promptly to urge to defecate. Warm sitz baths. Avoid prolonged sitting on toilet. Exercise regularly.',
+   nclex:'Bright red rectal bleeding in elderly patient → ALWAYS requires investigation to rule out colorectal cancer before attributing to hemorrhoids. Sitz bath water = WARM (not hot). Hemorrhoids in cirrhosis patients = anorectal varices (portal HTN).',
+   caseClue:'32-year-old pregnant woman with painless bright red blood on toilet paper, soft perianal swelling, pain when defecating. → External hemorrhoids → warm sitz baths, stool softeners, high-fiber diet, topical lidocaine'}
+];
+
+document.getElementById('lower-dx').innerHTML=lowerDx.map(buildDC).join('');
+
+// ─────────────────────────────────────────────
+// INFLAMMATORY CONTENT
+// ─────────────────────────────────────────────
+document.getElementById('sub-crohn').innerHTML=`
+  <div class="al al-em">🔥 <span><strong>Crohn's Disease Pattern:</strong> ANY part of GI · SKIP lesions (discontinuous) · ALL layers (transmural) · FISTULAS hallmark · MALNUTRITION common · Surgery NOT curative.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct" style="color:var(--orange)">📖 Definition & Pathophysiology</div>
+        <p style="font-size:12.5px;line-height:1.7">Chronic, relapsing-remitting <strong>transmural</strong> (full-thickness — through all bowel wall layers) inflammatory disease that can affect ANY segment of the GI tract from mouth to anus. Inflammation is <strong>discontinuous</strong> — "skip areas" of normal tissue between inflamed segments. Immune-mediated.</p>
+        <div class="hl hl-o" style="margin-top:9px;font-size:12.5px"><strong>Key pathology:</strong> Full-thickness (transmural) inflammation → fistulas, abscesses, strictures. Cobblestone mucosa on endoscopy. Granulomas on biopsy (pathognomonic).</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Classic Symptoms</div>
+        <ul class="bl">
+          <li>RLQ abdominal pain (terminal ileum most commonly affected site)</li>
+          <li>Chronic non-bloody or mildly bloody diarrhea (not as bloody as UC)</li>
+          <li>Weight loss, malnutrition, and malabsorption (significant)</li>
+          <li>Fatigue, low-grade fever during flares</li>
+          <li><strong>Fistulas</strong> — intestinal-to-bladder (pneumaturia), intestinal-to-skin, entero-enteric</li>
+          <li>Perianal disease: fissures, fistulas, abscesses, skin tags</li>
+          <li>Extraintestinal: arthritis, uveitis, erythema nodosum, primary sclerosing cholangitis</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="border-color:rgba(255,68,68,.3)"><div class="ct">🚨 Complications of Crohn's</div>
+        <ul class="bl">
+          <li>Intestinal obstruction (from fibrous strictures)</li>
+          <li>Fistulas (colovesical → pneumaturia/recurrent UTIs)</li>
+          <li>Abscesses (require drainage ± antibiotics)</li>
+          <li>Malnutrition: anemia, vitamin B12 deficiency (ileal disease), fat-soluble vitamin deficiencies</li>
+          <li>Increased colorectal cancer risk (long-standing disease)</li>
+          <li>Osteoporosis (long-term steroid use)</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">💊 Treatment & Nursing Care</div>
+        <ul class="bl">
+          <li>5-ASA agents (mesalamine — less effective than in UC for Crohn's)</li>
+          <li>Corticosteroids (prednisone — acute flares only, NOT maintenance)</li>
+          <li>Immunomodulators (azathioprine, 6-mercaptopurine)</li>
+          <li>Biologics (infliximab, adalimumab — anti-TNF-α — most effective)</li>
+          <li>NPO or elemental formula diet during severe flares</li>
+          <li>Surgery if obstruction, fistula, or abscess — NOT CURATIVE</li>
+          <li>Nutritional support: TPN or enteral nutrition for malnutrition</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="hl hl-y" style="margin-top:12px;font-size:12.5px">⭐ <strong>NCLEX Pattern:</strong> RLQ pain + non-bloody diarrhea + weight loss/malnutrition + fistula (pneumaturia) + skip lesions + cobblestone pattern = Crohn's disease. Surgery is NOT curative unlike UC.</div>`;
+
+document.getElementById('sub-uc').innerHTML=`
+  <div class="al al-em">🩸 <span><strong>Ulcerative Colitis Pattern:</strong> COLON ONLY · CONTINUOUS from rectum up · MUCOSAL layer only · BLOODY DIARRHEA hallmark · TOXIC MEGACOLON risk · Surgery IS CURATIVE (colectomy).</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct" style="color:var(--red)">📖 Definition & Pathophysiology</div>
+        <p style="font-size:12.5px;line-height:1.7">Chronic inflammatory disease limited to the <strong>COLON ONLY</strong>. Inflammation is <strong>continuous</strong> starting from the rectum and extending proximally (pancolitis if entire colon involved). Affects only the <strong>mucosal and submucosal layers</strong> (not transmural — key difference from Crohn's). Rectal involvement is ALWAYS present.</p>
+        <div class="hl hl-r" style="margin-top:9px;font-size:12.5px"><strong>Key pathology:</strong> Begins in rectum → extends continuously up colon. Crypt abscesses on histology. No granulomas (unlike Crohn's).</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Classic Symptoms</div>
+        <ul class="bl">
+          <li><strong>BLOODY DIARRHEA — hallmark</strong> (can be 15-20+ stools/day during severe flare)</li>
+          <li>Rectal urgency and tenesmus (feeling of incomplete emptying)</li>
+          <li>Crampy lower abdominal pain (worse before BM)</li>
+          <li>Fever, weight loss, fatigue during flares</li>
+          <li>Anemia from chronic blood loss (low H&H)</li>
+          <li>Extraintestinal: arthritis, primary sclerosing cholangitis (PSC), uveitis, pyoderma gangrenosum</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="border-color:rgba(255,68,68,.5)"><div class="ct" style="color:var(--red)">🚨 Toxic Megacolon — EMERGENCY</div>
+        <p style="font-size:12.5px;line-height:1.7">Life-threatening complication of severe UC (also Crohn's). Massive colonic distension + systemic toxicity. High mortality if untreated.</p>
+        <div class="hl hl-r" style="font-size:12.5px">Signs: Fever >38.5°C · Tachycardia >120 · Abdominal distention · ABSENT bowel sounds · ↑WBC. Colon >6cm on X-ray = diagnostic.</div>
+        <div class="hl hl-r" style="margin-top:7px;font-size:12.5px">🚨 DO NOT give enemas · DO NOT give opioids (decrease motility) · DO NOT perform colonoscopy. DO: NPO, NG decompression, IV steroids, IV antibiotics, emergent surgical consult.</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">💊 Treatment</div>
+        <ul class="bl">
+          <li>5-ASA (mesalamine) — first-line for mild-moderate UC</li>
+          <li>Corticosteroids (acute flares — NOT maintenance)</li>
+          <li>Immunomodulators (azathioprine)</li>
+          <li>Biologics (infliximab, vedolizumab)</li>
+          <li><strong>Surgery = CURATIVE for UC</strong> — total colectomy eliminates UC (unlike Crohn's)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="hl hl-y" style="margin-top:12px;font-size:12.5px">⭐ <strong>NCLEX Pattern:</strong> Bloody diarrhea 15+ stools/day + tenesmus + continuous lesions starting from rectum = Ulcerative Colitis. SURGERY (colectomy) IS CURATIVE in UC. NOT curative in Crohn's disease.</div>`;
+
+document.getElementById('sub-ibs').innerHTML=`
+  <div class="al al-info">ℹ️ <span><strong>IBS = Irritable Bowel SYNDROME — FUNCTIONAL disorder.</strong> No structural damage. No inflammation. Normal labs. Normal colonoscopy. Diagnosis of exclusion. Stress-related component.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct">📖 IBS Overview</div>
+        <p style="font-size:12.5px;line-height:1.7">Functional bowel disorder with chronic abdominal pain and altered bowel habits WITHOUT any structural, inflammatory, or biochemical abnormality. Brain-gut axis dysfunction. Stress is a major trigger. Affects 10-15% of population. More common in women.</p>
+        <div class="hl" style="font-size:12.5px;margin-top:9px"><strong>Types:</strong> IBS-C (constipation-predominant) · IBS-D (diarrhea-predominant) · IBS-M (mixed)</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Symptoms & Diagnosis</div>
+        <ul class="bl">
+          <li>Chronic abdominal pain/cramping — RELIEVED by defecation (key feature)</li>
+          <li>Altered stool form and frequency</li>
+          <li>Bloating, gas, urgency</li>
+          <li><strong>NO blood in stool, NO fever, NO weight loss, NO elevated WBC/CRP</strong></li>
+          <li>Worse with stress, certain foods, hormonal changes</li>
+          <li>Diagnosis by Rome IV criteria + exclusion of organic disease</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="ct">💊 Management</div>
+        <ul class="bl">
+          <li>Low-FODMAP diet (fermentable carbohydrates — reduces gas, bloating)</li>
+          <li>Psyllium fiber (IBS-C)</li>
+          <li>Loperamide (IBS-D — for diarrhea)</li>
+          <li>Antispasmodics (dicyclomine/hyoscine — for pain/cramping)</li>
+          <li>Low-dose TCAs (tricyclic antidepressants — modulate gut-brain signals)</li>
+          <li>Stress reduction, CBT (cognitive behavioral therapy)</li>
+          <li>Probiotics (emerging but not consistently proven)</li>
+        </ul>
+      </div>
+      <div class="hl hl-y" style="margin-top:11px;font-size:12.5px">⭐ <strong>IBS vs IBD NCLEX key:</strong> IBS = NO bleeding, NO fever, NO elevated WBC/CRP, NORMAL colonoscopy and labs. IBD = YES inflammation, bleeding, structural changes. NORMAL labs + normal colonoscopy = FUNCTIONAL = IBS.</div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-cel').innerHTML=`
+  <div class="al al-warn">🌾 <span><strong>Celiac Disease = Immune reaction to GLUTEN</strong> (wheat, barley, rye) → villous atrophy → malabsorption. Strict LIFELONG gluten-free diet is the ONLY treatment.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct">📖 Celiac Disease</div>
+        <p style="font-size:12.5px;line-height:1.7">Systemic autoimmune disease triggered by ingestion of gluten (protein in wheat, barley, rye) → T-cell mediated immune attack on small intestinal villi (villous atrophy) → severely impaired nutrient absorption (malabsorption syndrome).</p>
+        <div class="hl hl-o" style="margin-top:9px;font-size:12.5px"><strong>Affected area:</strong> Duodenum and jejunum villi — the primary sites of fat, iron, calcium, and folate absorption.</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Symptoms</div>
+        <ul class="bl">
+          <li>Chronic diarrhea, steatorrhea (fatty, foul-smelling, floating stools)</li>
+          <li>Abdominal bloating, cramping, gas</li>
+          <li>Weight loss, muscle wasting, malnutrition</li>
+          <li>Iron deficiency anemia (despite adequate dietary iron)</li>
+          <li><strong>Dermatitis herpetiformis</strong> — intensely itchy blistering skin rash (pathognomonic) ← NCLEX clue</li>
+          <li>Osteoporosis (calcium + vitamin D malabsorption)</li>
+          <li>Growth failure in children</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="ct">🧪 Diagnosis & Treatment</div>
+        <ul class="bl">
+          <li>Serology: anti-tissue transglutaminase IgA (tTG-IgA) — best screening test</li>
+          <li>Small bowel biopsy (gold standard) — shows villous atrophy on EGD</li>
+          <li><strong>ONLY treatment: strict LIFELONG gluten-free diet</strong></li>
+          <li>Nutrient supplementation: iron, calcium, vitamin D, B12, folate</li>
+          <li>Follow-up tTG-IgA to confirm dietary adherence</li>
+        </ul>
+        <div class="hl hl-r" style="margin-top:9px;font-size:12.5px">🚨 Dermatitis herpetiformis on NCLEX = always think CELIAC DISEASE.</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📚 Patient Teaching</div>
+        <ul class="bl">
+          <li>Read ALL food labels — avoid wheat, barley, rye</li>
+          <li>Oats: uncontaminated oats are generally safe (controversy exists)</li>
+          <li>Avoid cross-contamination in kitchen (separate utensils/pans)</li>
+          <li>Hidden gluten: sauces, soups, medications, communion wafers</li>
+          <li>Restaurant: ask about gluten-free options AND cross-contamination</li>
+        </ul>
+        <div class="hl hl-y" style="margin-top:9px;font-size:12.5px">⭐ NCLEX: Correct understanding = "I will avoid wheat, barley, and rye for life." Follow-up tTG-IgA level confirms adherence.</div>
+      </div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-tox').innerHTML=`
+  <div class="al al-em">🚨 <span><strong>TOXIC MEGACOLON = LIFE-THREATENING EMERGENCY.</strong> Massive colonic distension + systemic toxicity. Most common in severe UC. Colon >6cm on plain X-ray. High mortality.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct" style="color:var(--red)">🔬 Pathophysiology</div>
+        <p style="font-size:12.5px;line-height:1.7">Severe colonic inflammation → deep ulceration penetrating into muscle layer → neuromuscular damage → colon loses ALL motor function → massive distension with gas and fluid → ischemia from distension → transmural necrosis → perforation → peritonitis → septic shock → death.</p>
+        <div class="hl hl-r" style="margin-top:9px;font-size:12.5px"><strong>Triggers:</strong> Electrolyte imbalances (hypokalemia), opioids/antidiarrheals, colonoscopy during active colitis, contrast enemas, infections (especially C.diff).</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Diagnostic Criteria</div>
+        <ul class="bl">
+          <li>Colon diameter <strong>>6cm on abdominal X-ray</strong></li>
+          <li>Fever >38.5°C (>101.3°F)</li>
+          <li>Tachycardia >120 bpm</li>
+          <li>WBC >10,500/μL</li>
+          <li>Any one of: dehydration, altered mental status, electrolyte disturbances, hypotension</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="border-color:rgba(255,68,68,.5)"><div class="ct" style="color:var(--red)">🚨 Emergency Nursing Actions — In Order</div>
+        <div class="step"><div class="sn">1</div><div><strong>NPO</strong> — complete bowel rest immediately</div></div>
+        <div class="step"><div class="sn">2</div><div>NG tube insertion — gastric decompression</div></div>
+        <div class="step"><div class="sn">3</div><div>IV fluids + aggressive electrolyte replacement</div></div>
+        <div class="step"><div class="sn">4</div><div>IV methylprednisolone (high-dose corticosteroids)</div></div>
+        <div class="step"><div class="sn">5</div><div>IV broad-spectrum antibiotics (cover gram-negative and anaerobes)</div></div>
+        <div class="step"><div class="sn">6</div><div>Emergent surgical consult (colectomy if no improvement in 24-72hr)</div></div>
+        <div class="step"><div class="sn">7</div><div>Continuous monitoring: VS, abdominal girth, bowel sounds</div></div>
+        <div class="hl hl-r" style="margin-top:9px;font-size:12.5px">
+          <strong>ABSOLUTELY DO NOT:</strong><br>
+          ❌ Give enemas (can perforate)<br>
+          ❌ Give opioids or antidiarrheals (decrease motility = worsens)<br>
+          ❌ Perform colonoscopy during acute phase<br>
+          ❌ Delay surgical consult if no improvement
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-infcmp').innerHTML=`
+  <h3 style="font-size:14px;font-weight:700;color:var(--teal);margin-bottom:12px">📊 Complete Comparison: Crohn's vs UC vs IBS vs Celiac</h3>
+  <div class="tw"><table class="ct2">
+    <thead><tr><th>Feature</th><th style="color:var(--orange)">Crohn's Disease</th><th style="color:var(--red)">Ulcerative Colitis</th><th style="color:var(--blue)">IBS (Irritable Bowel)</th><th style="color:var(--lime)">Celiac Disease</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GI Location</strong></td><td>ANY segment (mouth to anus)</td><td>Colon ONLY (rectum always involved)</td><td>Anywhere (functional)</td><td>Small intestine (duodenum/jejunum)</td></tr>
+      <tr><td><strong>Lesion Pattern</strong></td><td>Skip lesions (discontinuous)</td><td>Continuous from rectum proximally</td><td>No lesions (functional disorder)</td><td>Villous atrophy (diffuse in small bowel)</td></tr>
+      <tr><td><strong>Depth</strong></td><td>Transmural (ALL layers)</td><td>Mucosal/submucosal ONLY</td><td>None</td><td>Mucosal (villous flattening)</td></tr>
+      <tr><td><strong>Bleeding</strong></td><td>Mild or none</td><td>BLOODY DIARRHEA (hallmark)</td><td>NO blood</td><td>No frank bleeding</td></tr>
+      <tr><td><strong>Hallmark Feature</strong></td><td>Fistulas, cobblestone mucosa, skip areas</td><td>Bloody diarrhea, tenesmus, continuous</td><td>Pain relieved by BM, stress-related</td><td>Steatorrhea, dermatitis herpetiformis</td></tr>
+      <tr><td><strong>Lab Changes</strong></td><td>↑WBC, ↑CRP, anemia, ↓albumin</td><td>↑WBC, anemia, blood in stool</td><td>ALL NORMAL</td><td>↑tTG-IgA, anemia, ↓albumin</td></tr>
+      <tr><td><strong>Trigger</strong></td><td>Unknown (immune dysregulation)</td><td>Unknown (immune dysregulation)</td><td>Stress, diet, gut-brain axis</td><td>Gluten (wheat, barley, rye)</td></tr>
+      <tr><td><strong>Curative Surgery?</strong></td><td>NO — surgery not curative</td><td>YES — colectomy is curative</td><td>N/A</td><td>NO — dietary restriction is treatment</td></tr>
+      <tr><td><strong>Cancer Risk</strong></td><td>Increased (long-standing disease)</td><td>Significantly increased (surveillance colonoscopy needed)</td><td>No increased risk</td><td>Slight increase (small bowel lymphoma)</td></tr>
+      <tr><td><strong>Priority Treatment</strong></td><td>Biologics (infliximab), steroids, nutritional support</td><td>5-ASA (mesalamine), steroids, surgery if severe</td><td>Low-FODMAP diet, antispasmodics, stress management</td><td>STRICT LIFELONG gluten-free diet</td></tr>
+    </tbody>
+  </table></div>`;
+
+// ─────────────────────────────────────────────
+// HEPATOBILIARY CONTENT
+// ─────────────────────────────────────────────
+document.getElementById('sub-hepa').innerHTML=`
+  <div class="al al-warn">🦠 <span><strong>Hepatitis = inflammation of the liver.</strong> Know transmission routes, which types are chronic, which have vaccines, and the key lab markers for each type.</span></div>
+  <div class="tw" style="margin-bottom:14px"><table class="ct2">
+    <thead><tr><th>Type</th><th>Transmission</th><th>Chronic?</th><th>Vaccine?</th><th>Key NCLEX Point</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:var(--green)">Hep A</strong></td><td>Fecal-oral (contaminated food/water, raw shellfish)</td><td>No (self-limited)</td><td>Yes</td><td>Hand hygiene, food safety, waterborne outbreaks</td></tr>
+      <tr><td><strong style="color:var(--orange)">Hep B</strong></td><td>Blood, sexual contact, perinatal (mother to baby)</td><td>Yes (~10% adults; higher in infants)</td><td>Yes (3-dose series)</td><td>HBsAg = currently infectious. Anti-HBs = immune. Healthcare workers MUST be vaccinated. Leads to cirrhosis and hepatocellular carcinoma.</td></tr>
+      <tr><td><strong style="color:var(--blue)">Hep C</strong></td><td>Blood (IV drug use, transfusions pre-1992)</td><td>Yes (75-85% become chronic)</td><td>No vaccine available</td><td>Most common chronic hepatitis in US. Direct-acting antivirals (DAAs: ledipasvir/sofosbuvir) cure >95%. Screen all adults once.</td></tr>
+      <tr><td><strong style="color:var(--purple)">Hep D</strong></td><td>Blood (ONLY with concurrent Hep B infection)</td><td>Yes</td><td>Hep B vaccine protects against D</td><td>Cannot infect without Hep B. Most severe combination.</td></tr>
+      <tr><td><strong style="color:var(--teal)">Hep E</strong></td><td>Fecal-oral (developing countries, contaminated water)</td><td>No (self-limited usually)</td><td>Not available in US</td><td>Extremely dangerous in pregnant women — high mortality.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="g2">
+    <div class="card"><div class="ct">📋 Common Hepatitis Symptoms</div>
+      <ul class="bl">
+        <li>Fatigue (earliest and most common symptom)</li>
+        <li>Jaundice, scleral icterus, dark urine, clay-colored stools</li>
+        <li>RUQ pain or tenderness, hepatomegaly</li>
+        <li>Nausea, vomiting, anorexia</li>
+        <li>Pruritus (from bile salt accumulation in skin)</li>
+        <li>Low-grade fever during acute phase</li>
+        <li>Arthralgias, rash (Hep B — immune complex deposition)</li>
+      </ul>
+    </div>
+    <div class="card"><div class="ct">🧪 Key Hepatitis B Lab Markers</div>
+      <ul class="bl">
+        <li><strong>HBsAg</strong> (surface antigen) = currently infected → can transmit</li>
+        <li><strong>Anti-HBs</strong> (surface antibody) = immune (vaccinated OR recovered)</li>
+        <li><strong>Anti-HBc IgM</strong> = acute recent infection</li>
+        <li><strong>Anti-HBc IgG</strong> = past exposure (may be chronic carrier)</li>
+        <li><strong>HBeAg</strong> = high replication, very infectious</li>
+        <li><strong>ALT/AST elevated</strong> = hepatocellular damage</li>
+        <li><strong>PT/INR prolonged</strong> = impaired clotting factor synthesis</li>
+      </ul>
+    </div>
+  </div>
+  <div class="hl hl-y" style="margin-top:12px;font-size:12.5px">⭐ <strong>NCLEX:</strong> Healthcare worker needle-stick from Hep B patient → report STAT, baseline Hep B titers, HBIG (hepatitis B immune globulin) + Hep B vaccine booster if not immune. Hep C needle-stick → no prophylaxis available → serial liver enzymes + HCV RNA monitoring.</div>`;
+
+document.getElementById('sub-cirrh').innerHTML=`
+  <div class="al al-em">⚠️ <span><strong>Cirrhosis = IRREVERSIBLE liver scarring.</strong> Monitor for the 6 deadly complications: variceal bleeding, encephalopathy, ascites, coagulopathy, hepatorenal syndrome, hepatocellular carcinoma.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct">📖 Definition, Causes & Progression</div>
+        <p style="font-size:12.5px;line-height:1.7">Irreversible replacement of functional hepatocytes with fibrous scar tissue → progressive loss of liver function. <strong>Compensated:</strong> patient manages with treatment. <strong>Decompensated:</strong> major complications develop (ascites, variceal bleed, encephalopathy).</p>
+        <div class="hl hl-o" style="margin-top:9px;font-size:12.5px"><strong>Causes:</strong> Alcohol use (most common in US), chronic Hep B, chronic Hep C, NAFLD/NASH (non-alcoholic fatty liver disease), autoimmune hepatitis, Wilson's disease, hemochromatosis, primary biliary cholangitis.</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Physical Signs of Cirrhosis</div>
+        <ul class="bl">
+          <li>Jaundice, scleral icterus (yellow skin/eyes)</li>
+          <li>Spider angiomas (arms/chest — from ↑ estrogen)</li>
+          <li>Palmar erythema (reddened palms)</li>
+          <li>Gynecomastia in men (↑ estrogen from impaired metabolism)</li>
+          <li>Asterixis = flapping hand tremor (EARLY encephalopathy sign)</li>
+          <li>Caput medusae (dilated tortuous umbilical veins — portal HTN)</li>
+          <li>Ascites (distended abdomen, fluid wave, shifting dullness)</li>
+          <li>Peripheral edema, muscle wasting, testicular atrophy</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="ct">⚠️ 6 Major Complications</div>
+        <ul class="bl">
+          <li><strong>Portal hypertension</strong> → varices, ascites, splenomegaly</li>
+          <li><strong>Esophageal/gastric varices</strong> → life-threatening hemorrhage</li>
+          <li><strong>Ascites</strong> → SBP (spontaneous bacterial peritonitis) risk</li>
+          <li><strong>Hepatic encephalopathy</strong> → ammonia → brain dysfunction</li>
+          <li><strong>Coagulopathy</strong> → decreased clotting factors → bleeding</li>
+          <li><strong>Hepatorenal syndrome</strong> → kidney failure without intrinsic renal disease</li>
+          <li><strong>Hepatocellular carcinoma</strong> → liver cancer (long-term)</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">👩‍⚕️ Priority Nursing Care</div>
+        <ul class="bl">
+          <li>Low-sodium diet (1-2g/day — reduces ascites)</li>
+          <li>Daily weight (2+ lb/day = fluid accumulation)</li>
+          <li>Abdominal girth measurement daily (same spot, same time)</li>
+          <li>Bleeding precautions (coagulopathy — small-gauge needles, pressure)</li>
+          <li>Avoid hepatotoxic medications (limit/avoid acetaminophen; NO alcohol)</li>
+          <li>Spironolactone (first-line diuretic) + furosemide (add-on)</li>
+          <li>Propranolol (prophylaxis for variceal bleeding)</li>
+          <li>Skin care (pruritus from bile salts)</li>
+        </ul>
+      </div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-porthtn').innerHTML=`
+  <div class="al al-em">🩸 <span><strong>Portal Hypertension = high pressure in portal vein → collateral vessels → varices → LIFE-THREATENING BLEEDING.</strong> The central driver of all cirrhosis complications.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct">🔬 Pathophysiology</div>
+        <p style="font-size:12.5px;line-height:1.7">Liver fibrosis → ↑ resistance to portal blood flow → portal venous pressure rises (normal 5-10 mmHg → HTN >12 mmHg) → blood cannot flow through liver → backs up → diverts through collateral vessels (varices form in esophagus, stomach, rectum, and at umbilicus).</p>
+        <div class="hl hl-o" style="margin-top:9px;font-size:12.5px">Normal portal pressure: 5-10 mmHg. Clinically significant HTN: >12 mmHg. Varices form when pressure >12 mmHg. Risk of bleeding >20 mmHg.</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Consequences of Portal HTN</div>
+        <ul class="bl">
+          <li>Esophageal and gastric varices (bleed risk)</li>
+          <li><strong>Ascites</strong> (fluid leaks from portal system into peritoneum)</li>
+          <li>Splenomegaly → thrombocytopenia (low platelets)</li>
+          <li>Caput medusae (dilated umbilical veins visible on abdomen)</li>
+          <li>Hemorrhoids (anorectal varices)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="ct">💊 Management of Portal HTN & Ascites</div>
+        <ul class="bl">
+          <li><strong>Propranolol/nadolol</strong> (non-selective beta-blockers — reduce portal pressure — primary prophylaxis for varices)</li>
+          <li><strong>Endoscopic band ligation</strong> (varices — both primary and secondary prophylaxis)</li>
+          <li><strong>TIPS</strong> (transjugular intrahepatic portosystemic shunt — creates internal bypass)</li>
+          <li><strong>Spironolactone</strong> (first-line diuretic for ascites — aldosterone antagonist)</li>
+          <li><strong>Furosemide</strong> (add to spironolactone — used together at 100:40mg ratio)</li>
+          <li>Large-volume paracentesis (relief of tense ascites — monitor BP closely)</li>
+          <li>Liver transplant (definitive treatment)</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">🔑 Ascites Monitoring & SBP</div>
+        <ul class="bl">
+          <li>Daily abdominal girth (same location, same time of day)</li>
+          <li>Daily weight at same time (>2 lbs/day = significant retention)</li>
+          <li>Low-sodium diet (2g/day)</li>
+          <li><strong>SBP (Spontaneous Bacterial Peritonitis):</strong> fever + abdominal pain + worsening mental status in ascites patient → DIAGNOSTIC PARACENTESIS immediately</li>
+          <li>During paracentesis: monitor BP continuously (hypotension risk from fluid shifts)</li>
+          <li>Large-volume paracentesis (>5L): give albumin IV to prevent paracentesis-induced circulatory dysfunction</li>
+        </ul>
+      </div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-enceph').innerHTML=`
+  <div class="al al-em">🧠 <span><strong>Hepatic Encephalopathy = liver cannot clear ammonia → brain dysfunction.</strong> LACTULOSE is the KEY treatment. Goal: 2-4 soft stools/day. Asterixis = early warning sign.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct">🔬 Pathophysiology</div>
+        <p style="font-size:12.5px;line-height:1.7">Liver failure → inability to convert ammonia (NH₃) to urea → ammonia accumulates in blood → crosses the blood-brain barrier → cerebral edema, astrocyte swelling → progressive neurological decline from mild confusion to coma.</p>
+        <div class="hl hl-o" style="margin-top:9px;font-size:12.5px"><strong>Precipitating factors (triggers):</strong> GI bleed (blood = protein → ammonia), constipation (ammonia builds up), infection/sepsis, high-protein diet, electrolyte disturbances (hypokalemia, alkalosis), opioids/benzodiazepines, diuretics, kidney failure.</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 4 Grades of Encephalopathy</div>
+        <ul class="bl">
+          <li><strong>Grade I:</strong> Subtle personality change, irritability, sleep-wake reversal, mild confusion</li>
+          <li><strong>Grade II:</strong> Lethargy, inappropriate behavior, ASTERIXIS (flapping hand tremor — have patient extend wrists)</li>
+          <li><strong>Grade III:</strong> Somnolent but still arousable, very confused, disoriented</li>
+          <li><strong>Grade IV:</strong> Unresponsive coma</li>
+        </ul>
+        <div class="hl hl-r" style="margin-top:8px;font-size:12.5px"><strong>Asterixis</strong> = flapping tremor when wrists are extended = hallmark early sign. Ask patient to "hold their hands up like stopping traffic" — watch for flapping.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="border-color:rgba(61,186,95,.3)"><div class="ct" style="color:var(--green)">💊 Lactulose — Primary Treatment</div>
+        <p style="font-size:12.5px;line-height:1.7"><strong>Mechanism:</strong> Synthetic disaccharide → not absorbed by human intestine → fermented by colonic bacteria → produces acidic environment in colon → ammonia (NH₃) converted to ammonium (NH₄⁺) which is ionically trapped and cannot be absorbed → excreted in stool → LOWERS blood ammonia.</p>
+        <div class="hl hl-g" style="margin-top:9px;font-size:12.5px"><strong>Goal: 2-4 soft stools per day.</strong><br>0 stools = ammonia not being cleared.<br>Too many (>4) = diarrhea → dehydration → alkalosis → WORSENS encephalopathy.</div>
+        <div class="hl hl-o" style="margin-top:8px;font-size:12.5px">If patient is too obtunded to swallow safely → give lactulose as a RETENTION ENEMA (300mL lactulose + 700mL water, retain 30-60 min).</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">👩‍⚕️ Nursing Priorities</div>
+        <ul class="bl">
+          <li>Assess and document neurological status (LOC, asterixis, orientation)</li>
+          <li>Safety measures: bed alarms, siderails, close monitoring (fall risk from confusion)</li>
+          <li>Administer lactulose as ordered; count and document stool frequency</li>
+          <li>Monitor ammonia level and correlate with mental status</li>
+          <li>Rifaximin (non-absorbable antibiotic — adjunct — reduces gut ammonia-producing bacteria)</li>
+          <li>Low-protein diet (moderate restriction only — completely protein-free is outdated and harmful)</li>
+          <li>Treat precipitating factors (constipation, infection, GI bleed)</li>
+          <li>Avoid opioids and benzodiazepines (worsen encephalopathy)</li>
+        </ul>
+      </div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-chol').innerHTML=`
+  <div class="al al-warn">🪨 <span><strong>Cholelithiasis = gallstones.</strong> Most are asymptomatic — found incidentally. Symptoms occur when stones obstruct the cystic duct or common bile duct. Remember the 5 F's for risk factors.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct">📖 Definition & Risk Factors</div>
+        <p style="font-size:12.5px;line-height:1.7">Formation of calculi (stones) within the gallbladder. Most common type: cholesterol stones (80%). Less common: pigment stones (hemolytic disease, cirrhosis). Risk increases with age and metabolic syndrome.</p>
+        <div class="hl hl-y" style="margin-top:9px;font-size:12.5px"><strong>The 5 F's of Cholelithiasis:</strong><br>
+          <strong>F</strong>at (obesity — cholesterol supersaturation)<br>
+          <strong>F</strong>orty (age >40 — prevalence increases)<br>
+          <strong>F</strong>emale (estrogen increases bile cholesterol)<br>
+          <strong>F</strong>ertile (pregnancy — progesterone slows bile emptying)<br>
+          <strong>F</strong>latulent (diet — rapid weight loss, low-fat diet)
+        </div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Symptoms</div>
+        <ul class="bl">
+          <li>Often ASYMPTOMATIC — incidental finding on imaging</li>
+          <li><strong>Biliary colic:</strong> severe episodic RUQ or epigastric pain AFTER eating a fatty meal (triggerss gallbladder to contract against stone)</li>
+          <li>Pain radiates to right shoulder and right scapula</li>
+          <li>Nausea and vomiting</li>
+          <li>Pain typically lasts 30 min to 6 hours then resolves</li>
+          <li>If CBD obstructed: jaundice, dark urine, clay-colored stools, pruritus</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="ct">🧪 Diagnosis & Treatment</div>
+        <ul class="bl">
+          <li><strong>Ultrasound</strong> (imaging test of choice — highly sensitive, safe, inexpensive)</li>
+          <li>HIDA scan (gallbladder function), CT abdomen, MRCP, ERCP (CBD stones)</li>
+          <li><strong>Asymptomatic:</strong> no treatment required (watchful waiting)</li>
+          <li><strong>Symptomatic:</strong> laparoscopic cholecystectomy (laparoscopic preferred over open)</li>
+          <li>Low-fat diet until surgery (reduces gallbladder stimulation)</li>
+          <li>Ursodeoxycholic acid (oral dissolution — only small cholesterol stones, rarely used)</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">👩‍⚕️ Post-Op Nursing Care</div>
+        <ul class="bl">
+          <li>Laparoscopic post-op: <strong>shoulder pain is NORMAL and EXPECTED</strong> (referred pain from CO₂ gas irritating diaphragm/phrenic nerve)</li>
+          <li>After cholecystectomy: normal diet is fine (bile still secreted continuously by liver)</li>
+          <li>Monitor wound sites (laparoscopic = 3-4 small incisions)</li>
+          <li>If T-tube present (open cholecystectomy): monitor drainage color and amount</li>
+        </ul>
+        <div class="hl hl-y" style="margin-top:9px;font-size:12.5px">⭐ NCLEX: Post-op shoulder pain after laparoscopic cholecystectomy = NORMAL (CO₂ gas). Reassure patient. Low-fat diet pre-op. Normal diet post-op.</div>
+      </div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-cholcy').innerHTML=`
+  <div class="al al-warn">🔥 <span><strong>Cholecystitis = inflamed gallbladder</strong> (usually from a gallstone blocking the cystic duct → infection develops). Murphy's Sign is the classic NCLEX assessment finding.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct">📋 Signs & Symptoms</div>
+        <ul class="bl">
+          <li>Severe, persistent RUQ pain — worse after fatty meal</li>
+          <li>Fever and chills (secondary infection)</li>
+          <li>Nausea and vomiting</li>
+          <li><strong>Murphy's Sign</strong> — NCLEX CLASSIC: patient stops inspiratory breath when nurse presses under right costal margin = POSITIVE = cholecystitis</li>
+          <li>RUQ guarding and tenderness</li>
+          <li>If CBD involved: jaundice, dark urine, clay-colored stools</li>
+          <li>Elevated WBC (12,000-15,000+), fever</li>
+        </ul>
+        <div class="hl hl-y" style="margin-top:9px;font-size:12.5px">⭐ <strong>Murphy's Sign Technique:</strong> Place fingers under right costal margin, ask patient to take a deep breath in. If patient winces and abruptly STOPS breathing due to pain = POSITIVE Murphy's sign = cholecystitis.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card"><div class="ct">🧪 Diagnosis</div>
+        <ul class="bl">
+          <li>Ultrasound (test of choice: shows gallstones, wall thickening, pericholecystic fluid)</li>
+          <li>HIDA scan (if US inconclusive — shows impaired gallbladder emptying)</li>
+          <li>CBC (elevated WBC), LFTs, lipase/amylase</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">💊 Treatment & Nursing</div>
+        <ul class="bl">
+          <li><strong>NPO</strong> (reduce gallbladder stimulation from food)</li>
+          <li>IV fluids for hydration</li>
+          <li>IV antibiotics (cover gram-negative and anaerobes)</li>
+          <li>Pain management: ketorolac, opioids (morphine, hydromorphone)</li>
+          <li>NG tube if severe nausea/vomiting</li>
+          <li><strong>Cholecystectomy</strong>: ideally within 48-72 hours of admission (reduces risk of complications)</li>
+          <li>ERCP if common bile duct stone present</li>
+        </ul>
+        <div class="hl hl-y" style="margin-top:9px;font-size:12.5px">⭐ NCLEX: Diet for cholecystitis = <strong>LOW-FAT</strong>. Fat triggers gallbladder contraction → pain worsens. NPO during acute phase.</div>
+      </div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-panc').innerHTML=`
+  <div class="al al-em">🔥 <span><strong>Acute Pancreatitis hallmark:</strong> Epigastric pain radiating to the BACK. NPO is the MOST CRITICAL intervention. Lipase is more specific than amylase. Meperidine (Demerol) is OUTDATED.</span></div>
+  <div class="g2">
+    <div>
+      <div class="card"><div class="ct">📖 Pathophysiology</div>
+        <p style="font-size:12.5px;line-height:1.7">Pancreatic duct obstruction (gallstone = most common) or direct toxicity (alcohol) → pancreatic enzymes (lipase, amylase, trypsin) cannot drain → activated INSIDE the pancreas → <strong>autodigestion</strong> of pancreatic tissue → inflammation → necrosis → systemic inflammatory response syndrome (SIRS).</p>
+        <div class="hl hl-o" style="margin-top:9px;font-size:12.5px"><strong>Two main causes (60-80%):</strong> Gallstones ("GET" — Gallstone, Ethanol/alcohol, Trauma, Steroids, Mumps, Autoimmune, Scorpion, Hyperlipidemia/Hypercalcemia, ERCP, Drugs)</div>
+      </div>
+      <div class="card" style="margin-top:11px"><div class="ct">📋 Symptoms & Hallmark Signs</div>
+        <ul class="bl">
+          <li><strong>Severe epigastric pain radiating to BACK</strong> — the classic hallmark</li>
+          <li>Pain is WORSE after eating (stimulates enzymes), BETTER leaning forward</li>
+          <li>Nausea, vomiting, inability to keep anything down</li>
+          <li>Fever (systemic inflammation)</li>
+          <li>Abdominal guarding and tenderness</li>
+          <li><strong>Cullen's sign:</strong> periumbilical ecchymosis (bruising around navel) = hemorrhagic pancreatitis</li>
+          <li><strong>Grey Turner's sign:</strong> flank ecchymosis = hemorrhagic pancreatitis</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="border-color:rgba(255,140,0,.4)"><div class="ct" style="color:var(--orange)">🚨 Priority Nursing Actions — In Order</div>
+        <div class="step"><div class="sn">1</div><div><strong>NPO</strong> — most critical intervention (nothing by mouth to prevent enzyme stimulation)</div></div>
+        <div class="step"><div class="sn">2</div><div>IV fluid resuscitation — aggressive (250-500mL/hr initially — pancreatitis is "third-spacing")</div></div>
+        <div class="step"><div class="sn">3</div><div>Pain management: IV morphine or hydromorphone (NOT meperidine/Demerol — causes seizures)</div></div>
+        <div class="step"><div class="sn">4</div><div>Monitor labs: amylase, lipase (lipase more specific and stays elevated longer), glucose, calcium</div></div>
+        <div class="step"><div class="sn">5</div><div>NG tube if vomiting is severe or ileus develops</div></div>
+        <div class="step"><div class="sn">6</div><div>Monitor for hypocalcemia (fat saponification binds calcium → drops) — Chvostek's and Trousseau's signs</div></div>
+        <div class="step"><div class="sn">7</div><div>Monitor blood glucose (beta cell damage → hyperglycemia possible)</div></div>
+        <div class="step"><div class="sn">8</div><div>Position patient: knees to chest or sitting forward (reduces pain)</div></div>
+      </div>
+      <div class="hl hl-y" style="margin-top:11px;font-size:12.5px">⭐ NCLEX: Meperidine (Demerol) = OUTDATED for pancreatitis (active metabolite normeperidine can cause seizures). Use morphine or hydromorphone. Hypocalcemia = check Chvostek's (facial twitch with CN VII tap) and Trousseau's (carpal spasm with BP cuff inflation) signs.</div>
+    </div>
+  </div>`;
+
+document.getElementById('sub-jaund').innerHTML=`
+  <div class="al al-info">🟡 <span><strong>Jaundice = yellowing of skin, sclera, and mucous membranes from bilirubin accumulation.</strong> The TYPE of jaundice guides diagnosis. Stool and urine color are the key clues.</span></div>
+  <div class="tw" style="margin-bottom:14px"><table class="ct2">
+    <thead><tr><th>Type</th><th>Mechanism</th><th>Direct Bili</th><th>Stool Color</th><th>Urine Color</th><th>Common Causes</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Pre-hepatic (Hemolytic)</strong></td><td>Excessive RBC breakdown overwhelms liver's ability to conjugate bilirubin</td><td>Normal</td><td>Normal or dark (↑ urobilinogen)</td><td>Normal or dark</td><td>Hemolytic anemia, sickle cell crisis, transfusion reaction, G6PD deficiency</td></tr>
+      <tr><td><strong>Hepatic (Intrahepatic)</strong></td><td>Damaged liver cells cannot process and conjugate bilirubin normally</td><td>↑</td><td>Normal to pale</td><td>Dark (bilirubinuria)</td><td>Viral hepatitis, cirrhosis, alcoholic liver disease, drug-induced liver injury</td></tr>
+      <tr><td><strong>Post-hepatic (Obstructive/Cholestatic)</strong></td><td>Bile duct blocked → conjugated bilirubin cannot reach intestine → backs up into blood</td><td>↑↑</td><td>CLAY-COLORED (acholic — white/pale/grey)</td><td>DARK TEA-colored (bilirubinuria)</td><td>Choledocholithiasis (CBD stone), cholangiocarcinoma, pancreatic head cancer, primary sclerosing cholangitis</td></tr>
+    </tbody>
+  </table></div>
+  <div class="g2">
+    <div class="card">
+      <div class="ct" style="color:var(--yellow)">🎯 Clinical Presentation of Obstructive Jaundice</div>
+      <ul class="bl">
+        <li>Progressive jaundice (painless = cancer; painful = gallstone)</li>
+        <li>CLAY-COLORED stools (no bile reaching intestine = no color)</li>
+        <li>DARK TEA-COLORED urine (conjugated bilirubin excreted in urine)</li>
+        <li>Pruritus (intense itching from bile salt accumulation in skin)</li>
+        <li>Dark yellow skin and scleral icterus</li>
+        <li>Weight loss if malignant cause</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ct">🔑 Key Lab Changes in Jaundice</div>
+      <ul class="bl">
+        <li>↑ Total bilirubin (all types)</li>
+        <li>↑ Direct (conjugated) bilirubin = hepatic or post-hepatic</li>
+        <li>↑ Indirect (unconjugated) bilirubin = pre-hepatic (hemolysis)</li>
+        <li>↑ ALP/GGT = cholestatic (post-hepatic)</li>
+        <li>↑ ALT/AST = hepatocellular (hepatic)</li>
+        <li>↑ PT/INR (if liver cannot make clotting factors)</li>
+        <li>Low albumin (if chronic liver disease)</li>
+      </ul>
+      <div class="hl hl-y" style="margin-top:9px;font-size:12.5px">⭐ NCLEX Clue: Clay-colored (pale/acholic) stools + dark tea urine + jaundice + PAINLESS = obstructive jaundice from CANCER (pancreatic head) until proven otherwise.</div>
+    </div>
+  </div>`;
+
+// ─────────────────────────────────────────────
+// EMERGENCIES
+// ─────────────────────────────────────────────
+document.getElementById('em-content').innerHTML=`
+  <div class="cg">
+    <div class="card" style="border-color:rgba(255,68,68,.45)">
+      <div class="ct" style="color:var(--red)">🚨 Peritonitis</div>
+      <span class="badge b-em" style="margin-bottom:7px">SURGICAL EMERGENCY</span>
+      <p style="font-size:12.5px;line-height:1.7">Inflammation of the peritoneum (lining of abdominal cavity). Bacterial peritonitis most common cause in surgical settings.</p>
+      <div class="hl hl-r" style="font-size:12.5px"><strong>Classic Signs:</strong> Rigid "board-like" abdomen · Rebound tenderness (pain on release of pressure) · Absent bowel sounds · High fever (>38.5°C) · Tachycardia · Hypotension (septic shock)</div>
+      <div class="hl hl-g" style="font-size:12.5px;margin-top:7px"><strong>Priority Actions:</strong> NPO · 2 large-bore IVs · IV broad-spectrum antibiotics · IV fluids · Foley catheter · NG tube · Surgical consent · Continuous VS monitoring</div>
+      <div class="hl hl-y" style="font-size:12.5px;margin-top:7px">⭐ Position: knees flexed (reduces peritoneal tension = reduces pain). Rigid abdomen = call MD IMMEDIATELY. Free air on upright X-ray = perforation confirmed.</div>
+    </div>
+    <div class="card" style="border-color:rgba(255,68,68,.45)">
+      <div class="ct" style="color:var(--red)">💥 GI Perforation</div>
+      <span class="badge b-em" style="margin-bottom:7px">SURGICAL EMERGENCY</span>
+      <p style="font-size:12.5px;line-height:1.7">Full-thickness hole through GI wall → intestinal contents spill into peritoneum → chemical peritonitis → bacterial peritonitis → septic shock → death if untreated.</p>
+      <div class="hl hl-r" style="font-size:12.5px"><strong>Hallmark:</strong> Sudden, severe, diffuse abdominal pain ("worst of my life") · Rigid abdomen · Free air under diaphragm on UPRIGHT abdominal X-ray (pneumoperitoneum)</div>
+      <div class="hl hl-o" style="font-size:12.5px;margin-top:7px"><strong>Causes:</strong> PUD perforation (most common) · Appendix rupture · Diverticulitis perforation · Bowel obstruction necrosis · Trauma · Iatrogenic (colonoscopy)</div>
+      <div class="hl hl-y" style="font-size:12.5px;margin-top:7px">⭐ Free air on upright abdominal X-ray = perforation. NPO STAT. IV antibiotics. Emergency surgical consultation. Do NOT delay.</div>
+    </div>
+    <div class="card" style="border-color:rgba(255,140,0,.4)">
+      <div class="ct" style="color:var(--orange)">🚧 Strangulated Hernia</div>
+      <span class="badge b-em" style="margin-bottom:7px">VASCULAR EMERGENCY</span>
+      <p style="font-size:12.5px;line-height:1.7">Herniated intestinal segment becomes trapped in hernia defect → blood supply cut off (strangulation) → ischemia → bowel necrosis within 4-6 hours without treatment.</p>
+      <div class="hl hl-r" style="font-size:12.5px"><strong>Signs:</strong> Tender, hard, NON-reducible hernia · Sudden severe constant pain (no longer comes and goes) · Vomiting · Fever · Absent bowel sounds · Signs of bowel obstruction</div>
+      <div class="hl hl-g" style="font-size:12.5px;margin-top:7px"><strong>Treatment:</strong> Emergency surgery ONLY. Do NOT attempt to manually reduce (may push necrotic bowel back). NPO. IV access. IV antibiotics.</div>
+    </div>
+    <div class="card" style="border-color:rgba(255,140,0,.4)">
+      <div class="ct" style="color:var(--orange)">🩸 Acute GI Hemorrhage</div>
+      <span class="badge b-em" style="margin-bottom:7px">HEMORRHAGE EMERGENCY</span>
+      <p style="font-size:12.5px;line-height:1.7">Rapid blood loss from GI tract overwhelming compensatory mechanisms → hypovolemic shock → organ failure → death.</p>
+      <div class="hl hl-r" style="font-size:12.5px"><strong>Signs:</strong> Hematemesis (bright red or coffee-ground) · Melena or hematochezia · HR >100 · SBP <90 · Pallor · Diaphoresis · Altered mental status</div>
+      <div class="hl hl-g" style="font-size:12.5px;margin-top:7px"><strong>Actions:</strong> AIRWAY first (aspiration risk) → 2 large-bore IVs → type & crossmatch → NPO → O₂ → blood transfusion → emergent EGD</div>
+      <div class="hl hl-y" style="font-size:12.5px;margin-top:7px">⭐ FIRST priority in GI hemorrhage: Airway assessment. Then circulation. NPO immediately. NOT antacids.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <h3 style="font-size:14px;font-weight:700;color:var(--orange);margin:0 0 11px">⚠️ Bowel Sounds Emergency Reference</h3>
+  <div class="tw"><table class="dt">
+    <thead><tr><th>Bowel Sound Finding</th><th>Clinical Meaning</th><th>Think of…</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:var(--green)">Normal (5-30 clicks/min)</strong></td><td>Normal intestinal peristalsis</td><td>Healthy GI function</td></tr>
+      <tr><td><strong style="color:var(--orange)">Hyperactive / High-pitched "tinkling"</strong></td><td>Increased peristalsis, or bowel contracting against obstruction</td><td>EARLY bowel obstruction, gastroenteritis, diarrhea, hunger</td></tr>
+      <tr><td><strong style="color:var(--red)">Absent (>5 min of listening)</strong></td><td>No peristalsis — bowel has stopped moving</td><td>LATE bowel obstruction, paralytic ileus, peritonitis — EMERGENCY FINDING</td></tr>
+      <tr><td><strong style="color:var(--purple)">Hypoactive (less than 5/min)</strong></td><td>Reduced peristalsis</td><td>Post-op state, opioid use, constipation, electrolyte imbalance (hypokalemia)</td></tr>
+    </tbody>
+  </table></div>`;
+
+// Emergency Match Game
+(()=>{
+  const pairs=[
+    {c:'RLQ pain migrating from periumbilical + rebound tenderness + fever + WBC 16,000',t:'Appendicitis → Surgical Emergency'},
+    {c:'Rigid board-like abdomen + absent bowel sounds + fever + tachycardia',t:'Peritonitis'},
+    {c:'Sudden severe diffuse abdominal pain + free air under diaphragm on X-ray',t:'GI Perforation'},
+    {c:'Distension + no flatus + colicky pain + air-fluid levels on X-ray',t:'Mechanical Bowel Obstruction'},
+    {c:'Cirrhosis + sudden massive bright red hematemesis + shock',t:'Esophageal Varices Rupture'},
+    {c:'UC patient + colonic distension >6cm + fever + absent bowel sounds',t:'Toxic Megacolon → EMERGENCY'},
+    {c:'Watery diarrhea x10/day + recent clindamycin course + WBC 30,000',t:'C. difficile Colitis'},
+    {c:'Non-reducible tender hernia + constant severe pain + absent bowel sounds',t:'Strangulated Hernia'},
+  ];
+  const types=[...pairs].map(p=>p.t).sort(()=>Math.random()-.5);
+  window.emSelClue=null;window.emMatched=[];
+  document.getElementById('em-game').innerHTML=`
+    <div class="mg">
+      <div class="mc">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:7px">Clinical Clues — Click one first</div>
+        ${pairs.map((p,i)=>`<div class="mi" id="ec${i}" onclick="emCl(${i})" data-ans="${p.t}">${p.c}</div>`).join('')}
+      </div>
+      <div class="mc">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:7px">Emergency Diagnoses — Then click match</div>
+        ${types.map((t,i)=>`<div class="mi" id="et${i}" onclick="emTy('${t.replace(/'/g,"\\'")}') " data-type="${t}">${t}</div>`).join('')}
+      </div>
+    </div>
+    <div id="emfb" style="margin-top:10px"></div>
+    <button class="btn btn-s" style="margin-top:10px" onclick="location.reload()">🔄 Reset Game</button>`;
+  window.emCl=function(i){
+    document.querySelectorAll('[id^="ec"]').forEach(el=>{if(!el.classList.contains('mat'))el.classList.remove('sel')});
+    const el=document.getElementById('ec'+i);
+    if(el.classList.contains('mat'))return;
+    el.classList.add('sel');window.emSelClue=i;
+  };
+  window.emTy=function(t){
+    if(window.emSelClue===null){document.getElementById('emfb').innerHTML='<div class="al al-info">ℹ️ Please select a clinical clue on the left first!</div>';return;}
+    const ce=document.getElementById('ec'+window.emSelClue);
+    if(!ce)return;
+    const cor=ce.dataset.ans;
+    const fb=document.getElementById('emfb');
+    if(t===cor){
+      ce.classList.remove('sel');ce.classList.add('mat');
+      document.querySelectorAll('[id^="et"]').forEach(el=>{if(el.dataset.type===t)el.classList.add('mat')});
+      fb.innerHTML='<div class="al al-ok">✅ Correct match! Great clinical reasoning.</div>';
+      window.emMatched.push(window.emSelClue);
+    }else{
+      ce.classList.add('wrm');setTimeout(()=>ce.classList.remove('wrm','sel'),900);
+      fb.innerHTML='<div class="al al-em">❌ Not quite. Deselected — try a different match!</div>';
+    }
+    window.emSelClue=null;
+    if(window.emMatched.length===pairs.length)fb.innerHTML='<div class="al al-ok">🎉 Outstanding! All 8 emergency conditions matched correctly!</div>';
+  };
+})();
+
+// ─────────────────────────────────────────────
+// DIAGNOSTICS
+// ─────────────────────────────────────────────
+const dxItems=[
+  {n:'Upper Endoscopy (EGD — Esophagogastroduodenoscopy)',ico:'🔭',c:'b-info',
+   why:'Gold standard for visualizing the esophagus, stomach, and duodenum. Can diagnose AND treat (cauterize bleeds, band varices, remove polyps, inject ulcers). Essential for GERD, PUD, GI bleed, Barrett\'s, cancer surveillance.',
+   findings:'Ulcers (PUD), esophageal varices, erosions, polyps, Barrett\'s change (columnar epithelium), active bleeding sites, esophagitis, cancer, Mallory-Weiss tears.',
+   prep:'NPO ≥6-8 hours (usually nothing after midnight). IV access established. Informed consent. Sedation assessment (typically propofol or midazolam/fentanyl). Remove dentures. Assess for anticoagulants (may need to hold). Review allergies.',
+   postcare:'Monitor GAG REFLEX before allowing any food, fluid, or oral medications — must be fully recovered. HOB elevated (aspiration risk from sedation). Mild sore throat is normal (scope passage). Assess for complications: chest pain + fever + subcutaneous crepitus = perforation (EMERGENCY). Sedation recovery monitoring. No driving for 24 hours.',
+   nclex:'GAG REFLEX must return before eating/drinking — this is the priority post-EGD assessment. Sore throat = normal and expected. Chest pain + fever + crepitus after EGD = PERFORATION → call MD STAT. Sengstaken-Blakemore tube placed during EGD for varices = SCISSORS MUST be at bedside at all times.'},
+  {n:'Colonoscopy',ico:'🔍',c:'b-info',
+   why:'Visualizes the entire colon from rectum to cecum. Primary tool for colorectal cancer screening, surveillance (IBD patients), and evaluation of rectal bleeding, bowel habit changes, and unexplained anemia. Can perform biopsy and polypectomy.',
+   findings:'Adenomatous polyps (remove and biopsy — cancer prevention), colorectal cancer, diverticulosis, diverticulitis, ulcerative colitis, Crohn\'s (cobblestone), C.diff (pseudomembranes), bleeding sites, angiodysplasia.',
+   prep:'Bowel preparation: oral polyethylene glycol (GoLYTELY 4L, or split-dose MiraLax) — clears the colon for visualization. Clear liquids diet for the day before. NPO after midnight or per protocol. Assess for anticoagulants (hold warfarin 5 days, hold aspirin if high risk). IV access. Consent. Sedation assessment. Electrolyte check (dehydration risk from prep).',
+   postcare:'Monitor for delayed bleeding (polypectomy site can bleed up to 2 WEEKS later — a delayed complication). Bloating and gas is NORMAL (air was insufflated during procedure). Report rectal bleeding >1 cup or >1 teaspoon if polypectomy performed. Sedation recovery monitoring. No driving 24 hours. Resume normal diet when tolerated (usually same day).',
+   nclex:'Bowel prep causes significant fluid and electrolyte loss — monitor for dehydration, especially in elderly patients. Post-polypectomy bleeding can occur up to 2 weeks after procedure — DELAYED complication. Colonoscopy is ABSOLUTELY CONTRAINDICATED in ACUTE DIVERTICULITIS (perforation risk). Screening starts at age 45 for average-risk adults.'},
+  {n:'Liver Function Tests (LFTs)',ico:'🧪',c:'b-med',
+   why:'Comprehensive assessment of liver health. Includes enzymes reflecting cell damage (ALT, AST), markers of bile flow (ALP, GGT, bilirubin), and markers of synthetic function (albumin, PT/INR).',
+   findings:'↑ ALT/AST = hepatocellular damage (hepatitis, cirrhosis, drug-induced injury). ↑ ALP/GGT = cholestatic pattern (biliary obstruction, cholestasis). ↑ Total/Direct bilirubin = impaired bilirubin excretion. ↓ Albumin = chronic liver disease, malnutrition, poor synthetic function. ↑ PT/INR = impaired coagulation factor synthesis (liver disease severity marker).',
+   prep:'Venipuncture. No special dietary preparation required for most LFTs.',
+   postcare:'Apply pressure to venipuncture site. If patient is coagulopathic (elevated PT/INR): apply pressure for 5-10 minutes minimum. Use smallest gauge needle available. Monitor for hematoma formation.',
+   nclex:'ALT is MORE liver-specific than AST (AST is also in muscle, heart, kidneys). Low albumin = chronic liver disease AND poor nutrition. Elevated PT/INR = bleeding risk (liver not making clotting factors II, VII, IX, X) → use small-gauge needles, avoid IM injections, apply prolonged pressure. ALT/AST normal to mildly elevated in cirrhosis (burnt-out liver has no cells left to leak enzymes).'},
+  {n:'Amylase & Lipase',ico:'🔬',c:'b-warn',
+   why:'Primary diagnostic markers for acute pancreatitis. Both enzymes are produced by the pancreas and released into blood when pancreatic tissue is inflamed or damaged.',
+   findings:'Both amylase AND lipase >3x upper limit of normal = acute pancreatitis. LIPASE is preferred as it is more specific to the pancreas (amylase can be elevated in parotitis, renal failure, intestinal ischemia). Lipase remains elevated for 7-14 days; amylase normalizes faster (3-5 days).',
+   prep:'Blood draw. Clinical context: NPO if pancreatitis suspected before draw, though these are diagnostic labs.',
+   postcare:'Normal venipuncture post-care. If pancreatitis confirmed: NPO immediately, IV fluids, pain management, monitor labs daily.',
+   nclex:'LIPASE is the preferred and more specific test for pancreatitis. Lipase stays elevated LONGER than amylase. If pancreatitis suspected → NPO IMMEDIATELY (most important nursing action). Level of enzyme elevation does NOT correlate with severity — Ranson\'s criteria predicts severity.'},
+  {n:'Fecal Occult Blood Test (FOBT/FIT)',ico:'🩸',c:'b-warn',
+   why:'Detects hidden (occult) blood in stool that is not visibly apparent. Used for colorectal cancer screening (annual FIT test), evaluation of iron deficiency anemia, and detection of subtle GI bleeding.',
+   findings:'Positive FOBT/FIT = blood present in stool. Does NOT diagnose the cause. Requires follow-up colonoscopy. Sources: polyps, colorectal cancer, PUD, IBD, hemorrhoids, angiodysplasia. False positives: red meat, vitamin C, aspirin, NSAIDs, broccoli.',
+   prep:'Patient must avoid for 3 days before collection: red meat (contains hemoglobin), vitamin C supplements (>250mg/day), aspirin/NSAIDs, raw fruits/vegetables high in peroxidase (broccoli, radishes, turnips). Collect three stool samples from three consecutive bowel movements. Women should not collect during menstruation.',
+   postcare:'No procedure post-care needed. Positive result → educate patient that colonoscopy is required for further evaluation. Do not diagnose cancer from FOBT alone.',
+   nclex:'FOBT is a SCREENING test — positive result requires colonoscopy for diagnosis. Dietary restrictions before collection: no red meat, no vitamin C. Positive FOBT does NOT mean cancer — it means further evaluation is needed. FIT test is more specific (detects human hemoglobin only) and has fewer dietary restrictions.'},
+  {n:'H. pylori Testing',ico:'🦠',c:'b-tl',
+   why:'Diagnose and confirm eradication of H.pylori infection — primary cause of peptic ulcer disease and a risk factor for gastric cancer. Multiple testing methods available with different strengths.',
+   findings:'Positive result = H.pylori infection present. After treatment: use urea breath test or stool antigen test to confirm eradication (serology/antibody tests remain positive for months even after successful treatment — cannot be used to confirm cure).',
+   prep:'Urea breath test (UBT): stop PPIs 2 weeks before AND antibiotics 4 weeks before testing (both cause false-negative results by suppressing H.pylori). Stool antigen test: same restrictions as UBT. Serology: no restrictions (but cannot confirm eradication). Biopsy via EGD: patient must be NPO for EGD.',
+   postcare:'If positive: initiate triple therapy (PPI + amoxicillin + clarithromycin x14 days) or bismuth quadruple therapy. Confirm eradication with UBT or stool antigen at LEAST 4 weeks after completing antibiotics and 2 weeks after stopping PPIs.',
+   nclex:'UBT or stool antigen test to CONFIRM ERADICATION — NOT serology (stays positive after treatment). PPIs must be stopped 2 weeks before testing. Antibiotics must be stopped 4 weeks before. Patient must complete FULL course of triple therapy — non-compliance = treatment failure = ulcer recurrence.'},
+  {n:'Ammonia Level (Blood)',ico:'🧠',c:'b-em',
+   why:'Assess for hepatic encephalopathy and monitor treatment effectiveness. Ammonia (NH₃) is produced from protein metabolism in the gut. Healthy liver converts it to urea (harmless). Failing liver cannot → ammonia accumulates → brain toxicity.',
+   findings:'Normal: 11-35 μmol/L (15-45 mcg/dL). Elevated in: liver failure, hepatic encephalopathy, portosystemic shunts, GI bleeding (blood = protein → ammonia), constipation (ammonia not cleared), high-protein diet, certain medications.',
+   prep:'Collect blood in chilled tube (ammonia degrades rapidly at room temperature). Transport to lab ON ICE immediately. Do NOT use tourniquet for prolonged time (muscle activity releases ammonia). Patient should not be clenching fist. Process within 15-20 minutes.',
+   postcare:'If elevated: assess neurological status (LOC, orientation, asterixis). Initiate/increase lactulose (goal 2-4 soft stools/day). Assess and treat precipitating factors. Implement safety measures (fall prevention if confused).',
+   nclex:'TRANSPORT ON ICE immediately — ammonia degrades rapidly at room temperature (pre-analytical error most common cause of false elevations). Elevated ammonia ≠ necessarily comatose — correlate with clinical status. Lactulose goal = 2-4 soft stools/day. Assess asterixis (flapping hand tremor) as clinical correlate.'},
+  {n:'Bilirubin (Total, Direct, Indirect)',ico:'🟡',c:'b-warn',
+   why:'Diagnose and classify jaundice. Determine cause of yellowing skin/sclera, dark urine, clay-colored stools. Guide diagnosis of liver disease, biliary obstruction, or hemolysis.',
+   findings:'Normal total bilirubin: <1.2 mg/dL. Jaundice visible when >2-3 mg/dL. Direct (conjugated) elevated = post-hepatic obstruction or hepatocellular disease. Indirect (unconjugated) elevated = pre-hepatic (hemolysis) or impaired conjugation (neonatal jaundice, Gilbert\'s syndrome). Direct hyperbilirubinemia + clay stools + dark urine = obstructive jaundice.',
+   prep:'Blood draw. No special preparation.',
+   postcare:'Normal venipuncture post-care. Interpret results in context with other LFTs, ALP, GGT, and clinical presentation.',
+   nclex:'KEY CLINICAL CLUE: clay-colored (acholic, pale, grey) stools + dark tea-colored urine + jaundice = POST-HEPATIC (obstructive) jaundice = BLOCKED BILE DUCT. Think gallstones in CBD or pancreatic head cancer. Pruritus (itching) from bile salt deposition in skin is common in obstructive jaundice.'}
+];
+
+document.getElementById('dx-content').innerHTML=dxItems.map(d=>`
+  <div class="dc">
+    <div class="dh" onclick="tDis(this)">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:19px">${d.ico}</span>
+        <span style="font-size:14px;font-weight:800">${d.n}</span>
+        <span class="badge ${d.c}">${d.c==='b-em'?'🚨 CRITICAL':'DIAGNOSTIC TEST'}</span>
+      </div>
+      <span class="aa">▼</span>
+    </div>
+    <div class="db">
+      <div class="acc"><div class="ah" onclick="tAcc(this)">📋 Why Ordered & Abnormal Findings <span class="aa">▼</span></div>
+        <div class="ab"><strong>Why it is ordered:</strong> ${d.why}<br><br><strong>Abnormal findings may suggest:</strong> ${d.findings}</div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">👩‍⚕️ Nursing Preparation & Post-Procedure Care <span class="aa">▼</span></div>
+        <div class="ab"><strong>Preparation:</strong> ${d.prep}<br><br><strong>Post-procedure nursing care:</strong> ${d.postcare}</div></div>
+      <div class="acc"><div class="ah" onclick="tAcc(this)">⭐ NCLEX Focus Points <span class="aa">▼</span></div>
+        <div class="ab"><div class="hl hl-y">${d.nclex}</div></div></div>
+    </div>
+  </div>`).join('');
+
+</script>
+</body>
+</html>
